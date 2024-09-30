@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Provider as PaperProvider} from 'react-native-paper';
-import {NavigationContainer} from '@react-navigation/native';
+import {Provider as PaperProvider, Avatar, Button} from 'react-native-paper';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import styles from './styles/globalStyles';
 
 import HomeScreen from './UI/screens/HomeScreen';
 import ShopCartScreen from './UI/screens/ShopCartScreen';
@@ -18,6 +19,9 @@ import OfertasScreen from './UI/screens/OfertasScreen';
 import AyudaScreen from './UI/screens/AyudaScreen';
 import DetalleScreen from './UI/screens/DetalleScreen';
 import SucursalScreen from './UI/screens/SucursalScreen';
+import {CartContext, CartProvider} from './context/CartContext';
+import {View, Text} from 'react-native';
+import AuthCheck from './UI/components/AuthCheck';
 
 const App = () => {
   //FlatList es un componente en React Native que se utiliza para renderizar listas grandes y optimizadas.
@@ -159,7 +163,11 @@ const App = () => {
     );
   }
 
+  //PANTALLAS BAJO NAV
   function MyTabs() {
+    //AUTENTICACION PA MOSTRAR O NO PESTAÑAS
+    const {isAuthenticated} = useContext(CartContext); // Acceso al contexto
+
     return (
       <Tab.Navigator
         initialRouteName="HomeScreen"
@@ -167,8 +175,14 @@ const App = () => {
           headerShown: false,
         }}>
         <Tab.Screen name="Inicio" component={Home} />
-        <Tab.Screen name="Comptas" component={Cart} />
-        <Tab.Screen name="Perfil" component={Profile} />
+
+        {isAuthenticated && (
+          <>
+            <Tab.Screen name="Compras" component={Cart} />
+            <Tab.Screen name="Perfil" component={Profile} />
+          </>
+        )}
+
         <Tab.Screen name="Productos" component={Products} />
         <Tab.Screen name="Soporte" component={AyudaSoporte} />
       </Tab.Navigator>
@@ -176,10 +190,14 @@ const App = () => {
   }
 
   return (
+    //COntext.Provider
     <PaperProvider>
-      <NavigationContainer>
-        <MyTabs />
-      </NavigationContainer>
+      <CartProvider>
+        <NavigationContainer>
+          <AuthCheck />
+          <MyTabs />
+        </NavigationContainer>
+      </CartProvider>
     </PaperProvider>
   );
 };

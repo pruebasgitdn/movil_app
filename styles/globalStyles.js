@@ -126,6 +126,54 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#3b3a39',
   },
+
+  //BOTOM AVATAR CERRAR SESION
+  topnav: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    zIndex: 1,
+    padding: 10,
+    gap: 20,
+  },
+
+  topsesion: {
+    display: 'flex',
+    flexDirection: 'row',
+    height: 50,
+    gap: 50,
+    zIndex: 3333,
+  },
+  btncerrarsesion: {
+    backgroundColor: '#ff0000',
+    fontSize: 20,
+  },
+  usertop: {
+    fontStyle: 'italic',
+    fontWeight: '600',
+    display: 'flex',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    fontSize: 20,
+  },
+  inic_top: {
+    display: 'flex',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 8,
+    height: 45,
+    zIndex: 1,
+    backgroundColor: '#4391ed',
+    padding: 4,
+  },
+
+  btns_tpnv: {
+    display: 'flex',
+    flexDirection: 'row',
+
+    zIndex: 3,
+  },
 });
 
 export default styles;

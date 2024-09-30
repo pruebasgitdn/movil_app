@@ -1,11 +1,26 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View} from 'react-native';
 import {Card, Text, TextInput, Button} from 'react-native-paper';
 import styles from '../../styles/globalStyles';
+import {CartContext} from '../../context/CartContext';
 
 const LoginScreen = ({navigation}) => {
-  const [text, setText] = React.useState('');
+  //Extraer del contexto
+  const {setUser, setIsAuthenticated, user, isAuthenticated} =
+    useContext(CartContext);
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   //
+
+  const handleLogin = () => {
+    if (email && password) {
+      setUser({email, password});
+      setIsAuthenticated(true);
+    }
+    console.log({user});
+    console.log(isAuthenticated);
+  };
   return (
     <View
       style={{
@@ -30,18 +45,18 @@ const LoginScreen = ({navigation}) => {
             <TextInput
               label="Usuario"
               mode="outlined"
-              value={text}
-              onChangeText={text => setText(text)}
+              value={email}
+              onChangeText={text => setEmail(text)}
             />
             <TextInput
               label="Contraseña"
               mode="outlined"
-              value={text}
-              onChangeText={text => setText(text)}
+              value={password}
+              onChangeText={text => setPassword(text)}
             />
             <Button
               mode="contained"
-              onPress={() => console.log('Pressed')}
+              onPress={() => handleLogin()}
               style={{
                 marginVertical: 10,
               }}>
