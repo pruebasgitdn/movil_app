@@ -19,7 +19,7 @@ const HomeScreen = ({navigation}) => {
                 mode="contained"
                 buttonColor="#032e85"
                 onPress={() => navigation.navigate('LoginScreen')}>
-                Inicar Sesion
+                Iniciar Sesion
               </Button>
               <Button
                 mode="contained"

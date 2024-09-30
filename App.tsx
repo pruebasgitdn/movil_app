@@ -54,9 +54,9 @@ const App = () => {
           options={{
             headerTitle: '',
           }}
-          name="ProfileScreen"
-          component={props => <ProfileScreen {...props} user={user_ejemplo} />}
-        />
+          name="ProfileScreen">
+          {props => <ProfileScreen {...props} user={user_ejemplo} />}
+        </Stack.Screen>
         <Stack.Screen
           options={{
             headerTitle: '',
@@ -96,11 +96,9 @@ const App = () => {
           options={{
             headerTitle: '',
           }}
-          name="DetalleScreen"
-          component={props => (
-            <DetalleScreen {...props} item={item_detalle_ejemplo} />
-          )}
-        />
+          name="DetalleScreen">
+          {props => <DetalleScreen {...props} item={item_detalle_ejemplo} />}
+        </Stack.Screen>
         <Stack.Screen
           options={{
             headerTitle: '',
@@ -114,6 +112,13 @@ const App = () => {
           }}
           name="RegisterScreen"
           component={RegisterScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="OfertasScreen"
+          component={OfertasScreen}
         />
       </Stack.Navigator>
     );

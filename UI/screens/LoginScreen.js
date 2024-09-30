@@ -5,6 +5,7 @@ import styles from '../../styles/globalStyles';
 
 const LoginScreen = ({navigation}) => {
   const [text, setText] = React.useState('');
+  //
   return (
     <View
       style={{

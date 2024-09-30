@@ -5,11 +5,11 @@ import {carros_oferta} from '../../constants';
 import styles from '../../styles/globalStyles';
 
 const OfertasScreen = ({navigation}) => {
-  const handlePress = () => {
-    navigation.navigate('DetalleScreen');
+  const handlePress = item => {
+    navigation.navigate('DetalleScreen', {item});
   };
   const renderItem = ({item}) => (
-    <Pressable onPress={handlePress}>
+    <Pressable onPress={() => handlePress(item)}>
       <View style={{marginVertical: 10, marginHorizontal: 10}}>
         <Card>
           <Card.Title title={item.marca} titleStyle={styles.negrita} />
@@ -43,15 +43,14 @@ const OfertasScreen = ({navigation}) => {
           </List.Accordion>
         </List.Section>
       </View>
-      <ScrollView>
-        <View>
-          <FlatList
-            data={carros_oferta}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-        </View>
-      </ScrollView>
+
+      <View>
+        <FlatList
+          data={carros_oferta}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      </View>
     </View>
   );
 };

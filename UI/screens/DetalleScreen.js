@@ -4,7 +4,9 @@ import {Card, SegmentedButtons} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../../styles/globalStyles';
 
-const DetalleScreen = ({item, navigation}) => {
+const DetalleScreen = ({route, navigation}) => {
+  const {item} = route.params; // Extraer item de los parámetros de navegación
+
   return (
     <ScrollView>
       <View
@@ -18,21 +20,9 @@ const DetalleScreen = ({item, navigation}) => {
           <Card>
             <Card.Title
               titleStyle={{textAlign: 'center', fontWeight: 'bold'}}
-              title="Carro Audi"
+              title={`Carro ${item.marca}`}
             />
-            {/* <View
-          style={{
-            width: 100,
-          }}>
-          <Image
-            style={{
-              width: '35',
-              height: '40',
-              display: 'flex',
-            }}
-            source={{uri: 'https://picsum.photos/700'}}
-          />
-        </View> */}
+
             <Card.Cover
               src={item.imgSrc}
               style={{
@@ -50,10 +40,7 @@ const DetalleScreen = ({item, navigation}) => {
                 Caracteristicas:{' '}
                 <Text style={styles.textodetalle}>{item.caracteristicas} </Text>{' '}
               </Text>
-              <Text style={styles.negrita}>
-                Descripcion:{' '}
-                <Text style={styles.textodetalle}>{item.descripcion}</Text>{' '}
-              </Text>
+
               <Text style={styles.negrita}>
                 Precio: <Text style={styles.textodetalle}>{item.precio}</Text>{' '}
               </Text>

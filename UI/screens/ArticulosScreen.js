@@ -16,11 +16,13 @@ const ArticulosScreen = ({navigation}) => {
     ? carros.filter(item => item.marca === selectedCategory)
     : carros;
 
-  const handlePress = () => {
-    navigation.navigate('DetalleScreen');
+  const handlePress = item => {
+    navigation.navigate('DetalleScreen', {item});
   };
+
+  //Renderizado del flatlist
   const renderItem = ({item}) => (
-    <Pressable onPress={handlePress}>
+    <Pressable onPress={() => handlePress(item)}>
       <View style={{marginVertical: 10, marginHorizontal: 10}}>
         <Card>
           <Card.Title title={item.marca} titleStyle={styles.negrita} />
@@ -108,15 +110,14 @@ const ArticulosScreen = ({navigation}) => {
           </View>
         </View>
       </View>
-      <ScrollView>
-        <View>
-          <FlatList
-            data={filtredData}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-        </View>
-      </ScrollView>
+
+      <View>
+        <FlatList
+          data={filtredData}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      </View>
     </View>
   );
 };
