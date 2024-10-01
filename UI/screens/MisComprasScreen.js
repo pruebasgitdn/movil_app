@@ -6,43 +6,17 @@ import {compras_ejemplo} from '../../constants';
 
 const MisComprasScreen = () => {
   const renderItem = ({item}) => (
-    <View style={{marginVertical: 10, marginHorizontal: 10}}>
+    <View style={styles.container_compras_hechas}>
       <Card>
-        <Card.Content
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: 10,
-            overflow: 'scroll',
-          }}>
+        <Card.Content style={styles.card_container_compras}>
           <View>
-            <Image
-              src={item.imgSrc}
-              style={{
-                width: 120,
-                height: 120,
-                borderRadius: 40,
-              }}
-            />
+            <Image src={item.imgSrc} style={styles.image_compras_hechas} />
           </View>
 
-          <View
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'baseline',
-            }}>
+          <View style={styles.detalle_card_compras_hc}>
             <Text style={styles.textodetalle}>{item.descripcion}</Text>
 
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: 10,
-                marginVertical: 10,
-              }}>
+            <View style={styles.second_row_detalle_card}>
               <View
                 style={{
                   display: 'flex',
@@ -74,14 +48,7 @@ const MisComprasScreen = () => {
     <ScrollView>
       <View>
         <View>
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: 25,
-              fontWeight: 'bold',
-            }}>
-            Compras Realizadas.
-          </Text>
+          <Text style={styles.textlogin}>Compras Realizadas.</Text>
         </View>
         <FlatList
           data={compras_ejemplo}

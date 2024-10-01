@@ -5,45 +5,18 @@ import styles from '../../styles/globalStyles';
 
 const ProfileScreen = ({user, navigation}) => {
   return (
-    <View
-      style={{
-        display: 'flex',
-        alignContent: 'center',
-        marginHorizontal: '5%',
-        marginTop: '25%',
-      }}>
+    <View style={styles.container_profile}>
       <Card>
-        <Card.Content
-          style={{
-            backgroundColor: '#0394fc',
-            padding: 10,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 10,
-          }}>
-          <Image
-            src={user.foto}
-            style={{
-              width: 150,
-              height: 150,
-              borderRadius: 70,
-            }}
-          />
+        <Card.Content style={styles.profile_card}>
+          <Image src={user.foto} style={styles.profile_img} />
           <Text style={styles.profile_letra}>
             {user.nombre} {user.apellidos[0]} {user.apellidos[1]}
           </Text>
           <Text style={styles.profile_subletra}>{user.fecha}</Text>
         </Card.Content>
 
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-            padding: 10,
-          }}>
+        {/* ACCIONES COMPRAS */}
+        <View style={styles.container_btns_profile}>
           <Text
             style={{
               textAlign: 'center',
@@ -63,6 +36,8 @@ const ProfileScreen = ({user, navigation}) => {
             Ver mis favoritos.
           </Button>
         </View>
+
+        {/* BARRA */}
         <View
           style={{
             borderBottomColor: '#9e9c98',
@@ -71,14 +46,9 @@ const ProfileScreen = ({user, navigation}) => {
             marginVertical: 15,
           }}
         />
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-            padding: 10,
-          }}>
+
+        {/* ACCIONES PERFIL */}
+        <View style={styles.container_btns_profile}>
           <Text
             style={{
               textAlign: 'center',

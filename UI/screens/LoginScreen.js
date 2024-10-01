@@ -11,46 +11,34 @@ const LoginScreen = ({navigation}) => {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  //
 
   const handleLogin = () => {
     if (email && password) {
       setUser({email, password});
       setIsAuthenticated(true);
     }
+    navigation.navigate('ArticulosScreen');
     console.log({user});
     console.log(isAuthenticated);
   };
   return (
-    <View
-      style={{
-        display: 'flex',
-        alignContent: 'center',
-        marginHorizontal: '5%',
-        marginTop: '25%',
-      }}>
+    <View style={styles.containerlogin}>
       {/* Plan machete    */}
       <View style={{}}>
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 25,
-            fontWeight: 'bold',
-            padding: 5,
-          }}>
-          Iniciar Sesion
-        </Text>
+        <Text style={styles.textlogin}>Iniciar Sesion</Text>
         <Card style={styles.form_container}>
           <Card.Content>
             <TextInput
               label="Usuario"
               mode="outlined"
+              maxLength={10}
               value={email}
               onChangeText={text => setEmail(text)}
             />
             <TextInput
               label="Contraseña"
               mode="outlined"
+              maxLength={8}
               value={password}
               onChangeText={text => setPassword(text)}
             />
@@ -63,14 +51,7 @@ const LoginScreen = ({navigation}) => {
               Entrar
             </Button>
 
-            <View
-              style={{
-                display: 'flex',
-                gap: 8,
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
+            <View style={styles.loginfooter}>
               <Text style={styles.subtitulo}>No tienes una cuenta?</Text>
               <Button
                 onPress={() => navigation.navigate('RegisterScreen')}

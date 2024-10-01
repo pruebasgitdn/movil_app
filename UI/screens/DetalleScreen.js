@@ -9,13 +9,7 @@ const DetalleScreen = ({route, navigation}) => {
 
   return (
     <ScrollView>
-      <View
-        style={{
-          display: 'flex',
-          alignContent: 'center',
-          marginHorizontal: '5%',
-          marginTop: '0%',
-        }}>
+      <View style={styles.container_detalle}>
         <ScrollView>
           <Card>
             <Card.Title
@@ -44,7 +38,9 @@ const DetalleScreen = ({route, navigation}) => {
               <Text style={styles.negrita}>
                 Precio: <Text style={styles.textodetalle}>{item.precio}</Text>{' '}
               </Text>
-              <View style={{marginVertical: 10, gap: 4}}>
+
+              {/* MEDIOS DE PAGO */}
+              <View style={styles.detalle_mediospago}>
                 <Text style={styles.negrita}>Medios de pago:</Text>
                 <SegmentedButtons
                   buttons={[
@@ -60,6 +56,8 @@ const DetalleScreen = ({route, navigation}) => {
                   ]}
                 />
               </View>
+
+              {/* INPUTS */}
               <View>
                 <Text style={styles.subnegrita}>Preguntas:</Text>
                 <TextInput

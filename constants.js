@@ -1,5 +1,19 @@
 //Constantes => DB de Ejemplo
 
+//
+export const usuarios = [
+  {
+    id: 1,
+    usuario: 'user1',
+    contraseña: 'password123',
+    correo: 'user1@example.com',
+    direccion: 'Calle Falsa 123',
+    fechaNacimiento: '1990/01/01',
+    departamento: 'Antioquia',
+    municipio: 'Medellín',
+  },
+];
+
 export const carros = [
   {
     id: 1,

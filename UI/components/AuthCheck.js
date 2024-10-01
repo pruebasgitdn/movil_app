@@ -16,7 +16,7 @@ const AuthCheck = () => {
   };
 
   return (
-    <View style={{height: 30}}>
+    <View style={{height: 10}}>
       {isAuthenticated ? (
         <View style={styles.topnav}>
           <View style={styles.topsesion}>

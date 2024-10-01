@@ -5,32 +5,15 @@ import styles from '../../styles/globalStyles';
 
 const AyudaScreen = () => {
   return (
-    <View
-      style={{
-        display: 'flex',
-        alignContent: 'center',
-        marginHorizontal: '5%',
-        marginTop: '25%',
-      }}>
+    <View style={styles.container_support}>
       <Card>
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 25,
-            fontWeight: 'bold',
-          }}>
-          Ayuda y Soporte.
-        </Text>
+        <Text style={styles.textlogin}>Ayuda y Soporte.</Text>
 
         <Card.Content>
           <Text style={styles.descripcion}>
             Describe la manera en que podremos ayudarte, o serte útil.
           </Text>
-          <View
-            style={{
-              display: 'flex',
-              gap: 20,
-            }}>
+          <View style={styles.list_support}>
             <List.Section>
               <List.Accordion
                 title="Tipo de Solicitud"

@@ -1,113 +1,67 @@
 import React from 'react';
-import {View, Text, FlatList, Image, ScrollView} from 'react-native';
-import {List, Button, Card} from 'react-native-paper';
-import styles from '../../styles/globalStyles';
+import {View, Text, FlatList, Image, StyleSheet} from 'react-native';
+import {Button, Card} from 'react-native-paper';
 import {carros_oferta} from '../../constants';
+import styles from '../../styles/globalStyles';
 
 const ShopCartScreen = ({navigation}) => {
   const renderItem = ({item}) => (
-    <View style={{marginVertical: 10, marginHorizontal: 10}}>
+    <View style={styles.cardContainer}>
       <Card>
-        <Card.Content
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: 10,
-            overflow: 'scroll',
-          }}>
+        <Card.Content style={styles.cardContent}>
           <View>
-            <Image
-              src={item.imgSrc}
-              style={{
-                width: 120,
-                height: 120,
-                borderRadius: 40,
-              }}
-            />
+            <Image source={{uri: item.imgSrc}} style={styles.image} />
           </View>
-
-          <View
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'baseline',
-            }}>
-            <Text style={styles.negrita}>{item.marca}</Text>
-            <Text style={styles.textodetalle}>{item.descripcion}</Text>
-            <Text style={styles.textodetalle}>$ {item.precio}</Text>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: 10,
-                marginVertical: 10,
-              }}>
-              <View
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 4,
-                }}>
+          <View style={styles.itemInfo}>
+            <Text style={styles.itemMarca}>{item.marca}</Text>
+            <Text style={styles.itemDescripcion}>{item.descripcion}</Text>
+            <Text style={styles.itemPrecio}>$ {item.precio}</Text>
+            <View style={styles.quantityContainer}>
+              <View style={styles.quantityControls}>
                 <Button mode="outlined">+</Button>
-                <Text style={styles.negrita}>1</Text>
+                <Text style={styles.itemCantidad}>1</Text>
                 <Button mode="outlined">-</Button>
               </View>
-
-              <View
-                style={{
-                  width: '100%',
-                }}>
-                <Button buttonColor="red" textColor="white">
-                  Eliminar Producto
-                </Button>
-              </View>
+              <Button
+                style={styles.deleteButton}
+                buttonColor="red"
+                textColor="white">
+                Eliminar Producto
+              </Button>
             </View>
           </View>
         </Card.Content>
       </Card>
     </View>
   );
+
   return (
-    <ScrollView>
-      <View>
-        <View>
-          <View>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 25,
-                fontWeight: 'bold',
-              }}>
-              Mi carrito.
-            </Text>
+    <View style={styles.container_card}>
+      <FlatList
+        data={carros_oferta}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        //Header de la lista
+        ListHeaderComponent={
+          <View style={styles.headerContainer}>
+            <Text style={styles.headerTitle}>Mi carrito</Text>
           </View>
-          <FlatList
-            data={carros_oferta}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-          }}>
-          <Text style={styles.negrita}>$ 130.394.234.999</Text>
-          <Button
-            buttonColor="#0ac404"
-            textColor="white"
-            onPress={() => navigation.navigate('SucursalScreen')}>
-            Ir al Pago
-          </Button>
-        </View>
-      </View>
-    </ScrollView>
+        }
+        //Footer de la lista
+        ListFooterComponent={
+          <View style={styles.footerContainer}>
+            <Text style={styles.totalText}>$ 130.394.234.999</Text>
+            <Button
+              style={styles.payButton}
+              buttonColor="#0ac404"
+              textColor="white"
+              onPress={() => navigation.navigate('SucursalScreen')}>
+              Ir al Pago
+            </Button>
+          </View>
+        }
+      />
+    </View>
   );
 };
 

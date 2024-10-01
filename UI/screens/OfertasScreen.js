@@ -10,7 +10,7 @@ const OfertasScreen = ({navigation}) => {
   };
   const renderItem = ({item}) => (
     <Pressable onPress={() => handlePress(item)}>
-      <View style={{marginVertical: 10, marginHorizontal: 10}}>
+      <View style={styles.container_card_oferta}>
         <Card>
           <Card.Title title={item.marca} titleStyle={styles.negrita} />
           <Card.Cover source={{uri: item.imgSrc}} />
@@ -25,15 +25,11 @@ const OfertasScreen = ({navigation}) => {
   );
   return (
     <View>
-      <View
-        style={{
-          backgroundColor: '#010f26',
-          padding: 10,
-        }}>
+      <View style={styles.ofertas_nav}>
         <List.Section>
           <List.Accordion
             titleStyle={{color: 'white'}}
-            title="Categorias"
+            title="Tipo"
             style={{backgroundColor: '#010f26'}}
             left={props => (
               <List.Icon {...props} icon="chart-bar" color="#ffffff" />

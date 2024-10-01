@@ -21,32 +21,14 @@ const SucursalScreen = () => {
   const [text, setText] = React.useState('');
   const [value, setValue] = React.useState('');
   const renderItem = ({item}) => (
-    <View style={{marginVertical: 10, marginHorizontal: 10}}>
+    <View style={styles.container_sucursal}>
       <Card>
-        <Card.Content
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: 10,
-            overflow: 'scroll',
-          }}>
+        <Card.Content style={styles.card_sucursal}>
           <View>
-            <Image
-              src={item.imgSrc}
-              style={{
-                width: 120,
-                height: 120,
-                borderRadius: 40,
-              }}
-            />
+            <Image src={item.imgSrc} style={styles.img_product_sucursal} />
           </View>
 
-          <View
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'baseline',
-            }}>
+          <View style={styles.info_product_sucursal}>
             <Text style={styles.negrita}>{item.marca}</Text>
             <Text style={styles.textodetalle}>{item.descripcion}</Text>
             <Text style={styles.negrita}>Precio: {item.precio}</Text>
@@ -61,14 +43,7 @@ const SucursalScreen = () => {
       <View>
         <View>
           <View>
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 25,
-                fontWeight: 'bold',
-              }}>
-              Sucursal de Pago.
-            </Text>
+            <Text style={styles.textlogin}>Sucursal de Pago.</Text>
           </View>
           <FlatList
             data={carros_oferta}
@@ -78,19 +53,8 @@ const SucursalScreen = () => {
         </View>
         <View>
           <Card>
-            <Card.Content
-              style={{
-                display: 'flex',
-                gap: 20,
-              }}>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                }}>
-                Direccion y Pago
-              </Text>
+            <Card.Content style={styles.sucursal_direccion_pago}>
+              <Text style={styles.textlogin}>Direccion y Pago</Text>
               <TextInput
                 label="Direccion de Entrega"
                 value={text}
@@ -113,14 +77,7 @@ const SucursalScreen = () => {
                     {value: 'AV VILLAS', label: 'AV VILLAS'},
                   ]}
                 />
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-evenly',
-                    alignItems: 'center',
-                    marginVertical: 5,
-                  }}>
+                <View style={styles.sucursal_total_pagar}>
                   <Text style={styles.negrita}>$ 130.394.234.999</Text>
                   <Button buttonColor="#0ac404" textColor="white">
                     PAGAR

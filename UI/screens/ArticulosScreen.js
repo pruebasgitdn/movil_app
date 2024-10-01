@@ -61,39 +61,62 @@ const ArticulosScreen = ({navigation}) => {
             alignItems: 'center',
             gap: 20,
           }}>
-          <View>
+          <View style={styles.containerlistselect}>
+            {/* Seleccion de Marca */}
             <List.Section>
               <List.Accordion
-                title="Categorias"
+                title="Marca"
                 titleStyle={{color: 'white'}}
                 style={{backgroundColor: '#010f26'}}
                 left={props => (
                   <List.Icon {...props} icon="chart-bar" color="#ffffff" />
                 )}>
                 <List.Item
-                  title="TOYOTA"
+                  title="Toyota"
                   titleStyle={{color: 'white'}}
-                  onPress={() => setSelectedCategory('Toyota')}
+                  onPress={() => setSelectedCategory('toyota')}
                 />
                 <List.Item
                   title="BMW"
                   titleStyle={{color: 'white'}}
-                  onPress={() => setSelectedCategory('BMW')}
+                  onPress={() => setSelectedCategory('bmw')}
                 />
                 <List.Item
-                  title="AUDI"
+                  title="Audi"
                   titleStyle={{color: 'white'}}
-                  onPress={() => setSelectedCategory('Audi')}
+                  onPress={() => setSelectedCategory('audi')}
                 />
                 <List.Item
-                  title="CHEVROLET"
+                  title="Chevrolet"
                   titleStyle={{color: 'white'}}
                   onPress={() => setSelectedCategory('Chevrolet')}
                 />
                 <List.Item
-                  title="FORD"
+                  title="Ford"
                   titleStyle={{color: 'white'}}
-                  onPress={() => setSelectedCategory('Ford')}
+                  onPress={() => setSelectedCategory('ford')}
+                />
+              </List.Accordion>
+            </List.Section>
+
+            {/* Seleccion de Tipo */}
+            <List.Section>
+              <List.Accordion
+                title="Tipo"
+                titleStyle={{color: 'white'}}
+                style={{backgroundColor: '#010f26'}}
+                left={props => (
+                  <List.Icon {...props} icon="chart-bar" color="#ffffff" />
+                )}>
+                <List.Item
+                  title="Electricos"
+                  titleStyle={{color: 'white'}}
+                  onPress={() => setSelectedCategory('Toyota')}
+                />
+                <List.Item
+                  title="Hibridos"
+                  titleStyle={{color: 'white'}}
+                  onPress={() => setSelectedCategory('Hibridos')}
                 />
               </List.Accordion>
             </List.Section>

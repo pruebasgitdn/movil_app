@@ -13,43 +13,17 @@ import {favo_ejemplo} from '../../constants';
 
 const MisFavoScreen = () => {
   const renderItem = ({item}) => (
-    <View style={{marginVertical: 10, marginHorizontal: 10}}>
+    <View style={styles.container_favo}>
       <Card>
-        <Card.Content
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: 10,
-            overflow: 'scroll',
-          }}>
+        <Card.Content style={styles.card_container_favo}>
           <View>
-            <Image
-              src={item.imgSrc}
-              style={{
-                width: 120,
-                height: 120,
-                borderRadius: 40,
-              }}
-            />
+            <Image src={item.imgSrc} style={styles.image_favo} />
           </View>
 
-          <View
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'baseline',
-            }}>
+          <View style={styles.detalle_card_favo}>
             <Text style={styles.textodetalle}>{item.descripcion}</Text>
 
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: 10,
-                marginVertical: 10,
-              }}>
+            <View style={styles.second_row_favo_card}>
               <View
                 style={{
                   display: 'flex',
@@ -80,14 +54,7 @@ const MisFavoScreen = () => {
     <ScrollView>
       <View>
         <View>
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: 25,
-              fontWeight: 'bold',
-            }}>
-            Mis Favoritos.
-          </Text>
+          <Text style={styles.textlogin}>Mis Favoritos.</Text>
         </View>
         <FlatList
           data={favo_ejemplo}
