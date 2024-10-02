@@ -1,18 +1,29 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {View, Text, ImageBackground, Image} from 'react-native';
-import {Card, Icon, Button} from 'react-native-paper';
+import {Card, Icon, Button, Avatar} from 'react-native-paper';
 import styles from '../../styles/globalStyles';
+import {CartContext} from '../../context/CartContext';
 
-const ProfileScreen = ({user, navigation}) => {
+const ProfileScreen = ({navigation, route}) => {
+  const {user, state, dispatch} = useContext(CartContext);
+
+  useEffect(() => {
+    console.log('User actualizado:', state.user);
+  }, [state.user]);
+  useEffect(() => {
+    console.log('AUT:', state.isAuthenticated);
+  }, [state.isAuthenticated]);
+
   return (
     <View style={styles.container_profile}>
       <Card>
         <Card.Content style={styles.profile_card}>
-          <Image src={user.foto} style={styles.profile_img} />
-          <Text style={styles.profile_letra}>
-            {user.nombre} {user.apellidos[0]} {user.apellidos[1]}
-          </Text>
-          <Text style={styles.profile_subletra}>{user.fecha}</Text>
+          <Avatar.Image
+            size={100}
+            source={require('../../styles/assets/avatar.png')}
+          />
+          <Text style={styles.profile_letra}>{state.user?.usuario}</Text>
+          <Text style={styles.profile_subletra}>{state.user?.correo}</Text>
         </Card.Content>
 
         {/* ACCIONES COMPRAS */}

@@ -58,6 +58,7 @@ const SucursalScreen = () => {
               <TextInput
                 label="Direccion de Entrega"
                 value={text}
+                maxLength={30}
                 mode="outlined"
                 onChangeText={text => setText(text)}
               />

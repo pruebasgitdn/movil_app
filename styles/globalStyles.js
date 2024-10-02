@@ -237,10 +237,18 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   footerContainer: {
+    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    gap: 30,
     alignItems: 'center',
+    marginRight: 'auto',
+    marginLeft: 'auto',
     marginVertical: 20,
+  },
+  footerbtns_cart: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   totalText: {
     fontSize: 20,
@@ -398,10 +406,9 @@ const styles = StyleSheet.create({
   },
   container_btns_profile: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    padding: 10,
+    flexDirection: 'column',
+    gap: 10,
+    padding: 15,
   },
   container_sucursal: {
     marginVertical: 10,
@@ -433,6 +440,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     marginVertical: 5,
+  },
+  container_carro_vacio: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    marginTop: 200,
+  },
+  text_carro_vacio: {},
+  btn_carro_vacio: {
+    display: 'flex',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 200,
+  },
+
+  btns_detalle_prd: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: 15,
+    gap: 30,
+    flexDirection: 'row',
   },
 });
 

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, FlatList, Image, ScrollView} from 'react-native';
 import {Card, Icon, Button} from 'react-native-paper';
 import styles from '../../styles/globalStyles';
 import {compras_ejemplo} from '../../constants';
+import {CartContext} from '../../context/CartContext';
 
-const MisComprasScreen = () => {
+const MisComprasScreen = ({navigation}) => {
+  const {user, isAuthenticated, state} = useContext(CartContext);
   const renderItem = ({item}) => (
     <View style={styles.container_compras_hechas}>
       <Card>
@@ -45,18 +47,59 @@ const MisComprasScreen = () => {
   );
 
   return (
-    <ScrollView>
-      <View>
-        <View>
-          <Text style={styles.textlogin}>Compras Realizadas.</Text>
+    <View style={styles.container_card}>
+      {state.user.compras && state.user.compras.length > 0 ? (
+        <>
+          <FlatList
+            data={compras_ejemplo}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            //Header de la lista
+            ListHeaderComponent={
+              <View style={styles.headerContainer}>
+                <Text style={styles.headerTitle}>Mis Compras</Text>
+              </View>
+            }
+            //Footer de la lista
+            ListFooterComponent={
+              <View style={styles.footerContainer}>
+                <Button
+                  style={styles.payButton}
+                  buttonColor="#0ac404"
+                  textColor="white"
+                  onPress={() => navigation.navigate('ProfileScreen')}>
+                  Perfil
+                </Button>
+              </View>
+            }
+          />
+        </>
+      ) : (
+        <View style={styles.container_carro_vacio}>
+          <Text style={styles.textlogin}>
+            No has realizado compras, de momento.
+          </Text>
+          <Button
+            buttonColor="#00bbfc"
+            textColor="#f3fff9"
+            style={styles.btn_carro_vacio}
+            onPress={() => navigation.navigate('ArticulosScreen')}>
+            Ver productos!!.
+          </Button>
         </View>
-        <FlatList
-          data={compras_ejemplo}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
-      </View>
-    </ScrollView>
+      )}
+    </View>
+
+    // <View>
+    //   <View>
+    //     <Text style={styles.textlogin}>Compras Realizadas.</Text>
+    //   </View>
+    //   <FlatList
+    //     data={compras_ejemplo}
+    //     renderItem={renderItem}
+    //     keyExtractor={item => item.id}
+    //   />
+    // </View>
   );
 };
 

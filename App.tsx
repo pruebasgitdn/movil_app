@@ -47,20 +47,45 @@ const App = () => {
           name="SucursalScreen"
           component={SucursalScreen}
         />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="ArticulosScreen"
+          component={ArticulosScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="DetalleScreen"
+          component={DetalleScreen}
+        />
       </Stack.Navigator>
     );
   }
 
   function Profile() {
+    //AUTENTICACION PA MOSTRAR O NO PESTAÑAS
+    const {user} = useContext(CartContext); // Acceso al contexto
+
     return (
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           options={{
             headerTitle: '',
           }}
           name="ProfileScreen">
-          {props => <ProfileScreen {...props} user={user_ejemplo} />}
-        </Stack.Screen>
+          {props => <ProfileScreen {...props} user={user}
+           />}
+        </Stack.Screen> */}
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="ProfileScreen"
+          component={ProfileScreen}
+        />
         <Stack.Screen
           options={{
             headerTitle: '',
@@ -100,9 +125,16 @@ const App = () => {
           options={{
             headerTitle: '',
           }}
+          name="DetalleScreen"
+          component={DetalleScreen}
+        />
+        {/* <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
           name="DetalleScreen">
           {props => <DetalleScreen {...props} item={item_detalle_ejemplo} />}
-        </Stack.Screen>
+        </Stack.Screen> */}
         <Stack.Screen
           options={{
             headerTitle: '',
@@ -123,6 +155,34 @@ const App = () => {
           }}
           name="OfertasScreen"
           component={OfertasScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="ProfileScreen"
+          component={ProfileScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="ShopCartScreen"
+          component={ShopCartScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="MisComprasScreen"
+          component={MisComprasScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="MisFavoScreen"
+          component={MisFavoScreen}
         />
       </Stack.Navigator>
     );
@@ -159,6 +219,13 @@ const App = () => {
           name="OfertasScreen"
           component={OfertasScreen}
         />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="DetalleScreen"
+          component={DetalleScreen}
+        />
       </Stack.Navigator>
     );
   }
@@ -166,7 +233,7 @@ const App = () => {
   //PANTALLAS BAJO NAV
   function MyTabs() {
     //AUTENTICACION PA MOSTRAR O NO PESTAÑAS
-    const {isAuthenticated} = useContext(CartContext); // Acceso al contexto
+    const {isAuthenticated, state} = useContext(CartContext); // Acceso al contexto
 
     return (
       <Tab.Navigator
@@ -176,7 +243,7 @@ const App = () => {
         }}>
         <Tab.Screen name="Inicio" component={Home} />
 
-        {isAuthenticated && (
+        {state.isAuthenticated && (
           <>
             <Tab.Screen name="Compras" component={Cart} />
             <Tab.Screen name="Perfil" component={Profile} />
