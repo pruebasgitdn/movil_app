@@ -1,5 +1,13 @@
 import React from 'react';
-import {View, Text, Image, Button, TextInput, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  Button,
+  TextInput,
+  ScrollView,
+  ImageBackground,
+} from 'react-native';
 import {Card, SegmentedButtons} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../../styles/globalStyles';
@@ -12,31 +20,21 @@ const DetalleScreen = ({route, navigation}) => {
       <View style={styles.container_detalle}>
         <ScrollView>
           <Card>
-            <Card.Title
-              titleStyle={{textAlign: 'center', fontWeight: 'bold'}}
-              title={`Carro ${item.marca}`}
-            />
-
-            <Card.Cover
-              src={item.imgSrc}
-              style={{
-                height: '15%',
-                width: '90%',
-                marginHorizontal: '3%',
-              }}
-            />
+            <Card.Cover src={item.imgSrc} />
             <Card.Content>
+              <Text style={styles.titlecardetalle}>{item.title}</Text>
               <Text style={styles.negrita}>
-                Descripcion:{' '}
-                <Text style={styles.textodetalle}>{item.descripcion} </Text>
-              </Text>
-              <Text style={styles.negrita}>
-                Caracteristicas:{' '}
-                <Text style={styles.textodetalle}>{item.caracteristicas} </Text>{' '}
+                Descripcion:
+                <View>
+                  <Text style={styles.textodetalle}>{item.description}</Text>
+                </View>
               </Text>
 
               <Text style={styles.negrita}>
-                Precio: <Text style={styles.textodetalle}>{item.precio}</Text>{' '}
+                Precio:
+                <View>
+                  <Text style={styles.textodetalle}>{item.price}</Text>
+                </View>
               </Text>
 
               {/* MEDIOS DE PAGO */}

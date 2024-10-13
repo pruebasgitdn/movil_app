@@ -49,26 +49,54 @@ const styles = StyleSheet.create({
   },
   titulo_home: {
     textAlign: 'center',
-    fontSize: 25,
+    fontSize: 23,
     fontWeight: 'bold',
-    borderRadius: 8,
     padding: 15,
+    color: '#000000',
   },
   card_home: {
-    width: '80%',
+    width: '90%',
+  },
+  cardlogin: {
+    width: '90%',
+    display: 'flex',
+    margin: 5,
+    justifyContent: 'space-around',
+  },
+  homebtn: {
+    backgroundColor: '#0f86f2',
+  },
+
+  loginbnt: {
+    backgroundColor: '#0f86f2',
+    marginVertical: 10,
+  },
+  crearuna: {
+    backgroundColor: '#bc005d',
   },
   overlay: {
     flex: 1,
     justifyContent: 'flex-end', // Para alinear el texto en la parte inferior
     alignItems: 'center', // Para centrar el texto horizontalmente
-    marginBottom: '40%',
+    marginBottom: '5%',
   },
 
   //ESTILOS FORM
+  register_form: {
+    display: 'flex',
+    backgroundColor: '#edeced',
+    justifyContent: 'center',
+    width: '90%',
+  },
+  btns_reg: {
+    backgroundColor: '#3d85c6',
+  },
+
   form_container: {
     display: 'flex',
     backgroundColor: '#D9DCE0',
     justifyContent: 'center',
+    width: '90%',
   },
   titulo: {
     fontSize: 30,
@@ -86,23 +114,39 @@ const styles = StyleSheet.create({
   //SEARCH_BAR
   search_bar: {
     borderRadius: 10,
+    margin: 5,
+  },
+  list_section: {
+    width: '60%',
   },
 
+  searchbarcontainer: {
+    backgroundColor: '#b5c7f4',
+    padding: 0,
+  },
+  subsearchbarcontainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  list_sbar: {
+    backgroundColor: '#b5c7f4',
+  },
   negrita: {
     marginVertical: 3,
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '500',
     color: '#000000',
   },
   subnegrita: {
     fontSize: 15,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
+    fontWeight: '500',
   },
   descripcion: {
     marginVertical: 5,
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 12,
     fontStyle: 'italic',
   },
 
@@ -120,9 +164,16 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
 
+  titlecardetalle: {
+    textAlign: 'center',
+    fontSize: 25,
+    fontWeight: '700',
+  },
   //DETALLE
   textodetalle: {
-    fontSize: 16,
+    fontSize: 12,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
     color: '#3b3a39',
   },
 
@@ -174,6 +225,11 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
 
+  backgroundLogin: {
+    height: '100%',
+    objectFit: 'cover',
+  },
+
   containerlistselect: {
     display: 'flex',
     flexDirection: 'row',
@@ -196,7 +252,6 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     flexDirection: 'row',
-    gap: 10,
   },
   image: {
     width: 120,
@@ -263,16 +318,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     padding: 5,
   },
+
   containerlogin: {
-    display: 'flex',
-    alignContent: 'center',
-    marginHorizontal: '5%',
-    marginTop: '15%',
+    alignItems: 'center',
+    top: '58%',
   },
+
+  btnsloging: {
+    backgroundColor: '#0f86f2',
+    margin: 5,
+  },
+
+  barrasearch: {},
   textregister: {
     textAlign: 'center',
     fontSize: 25,
     fontWeight: 'bold',
+    color: '#000000',
     padding: 5,
   },
   ubicacion_container: {
@@ -286,9 +348,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   container_register: {
-    display: 'flex',
-    alignContent: 'center',
-    marginHorizontal: '5%',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  bgpur: {
+    backgroundColor: '#57069a',
   },
   loginfooter: {
     display: 'flex',
@@ -307,11 +371,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 20,
   },
+
   container_detalle: {
     display: 'flex',
     alignContent: 'center',
-    marginHorizontal: '5%',
-    marginTop: '0%',
+    marginVertical: 20,
   },
   card_detalle_text: {
     textAlign: 'center',
@@ -434,6 +498,42 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 20,
   },
+  ss: {
+    width: '50%',
+    alignContent: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  gridContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
+  },
+  gridItem: {
+    width: '48%',
+  },
+  gridArts: {
+    margin: 2,
+    alignContent: 'center',
+  },
+  card_total: {
+    width: '100%',
+  },
+  text_pr: {
+    color: '#000000',
+    fontSize: 25,
+    textAlign: 'center',
+    marginVertical: 10,
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+  },
+  card_art: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   sucursal_total_pagar: {
     display: 'flex',
     flexDirection: 'row',
@@ -458,9 +558,8 @@ const styles = StyleSheet.create({
   btns_detalle_prd: {
     display: 'flex',
     justifyContent: 'center',
-    padding: 15,
-    gap: 30,
-    flexDirection: 'row',
+    gap: 10,
+    flexDirection: 'column',
   },
 });
 

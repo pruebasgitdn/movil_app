@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Provider as PaperProvider, Avatar, Button} from 'react-native-paper';
@@ -22,13 +22,20 @@ import SucursalScreen from './UI/screens/SucursalScreen';
 import {CartContext, CartProvider} from './context/CartContext';
 import {View, Text} from 'react-native';
 import AuthCheck from './UI/components/AuthCheck';
+import TecnoProducts from './UI/components/TecnoProducts';
+import RopaProducts from './UI/components/RopaProducts';
+import AseoProducts from './UI/components/AseoProducts';
+import AutoProducts from './UI/components/AutoProducts';
+import HogarProducts from './UI/components/HogarProducts';
+import {importDataToFirestore} from './android/app/src/services/fireStoreImport';
 
 const App = () => {
-  //FlatList es un componente en React Native que se utiliza para renderizar listas grandes y optimizadas.
   const Stack = createNativeStackNavigator();
-
-  // Creación del Bottom Tab Navigator
   const Tab = createBottomTabNavigator();
+
+  // useEffect(() => {
+  //   importDataToFirestore();
+  // }, []);
 
   function Cart() {
     return (
@@ -226,6 +233,41 @@ const App = () => {
           name="DetalleScreen"
           component={DetalleScreen}
         />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="TecnoProducts"
+          component={TecnoProducts}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="RopaProducts"
+          component={RopaProducts}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="AseoProducts"
+          component={AseoProducts}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="AutoProducts"
+          component={AutoProducts}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="HogarProducts"
+          component={HogarProducts}
+        />
       </Stack.Navigator>
     );
   }
@@ -261,7 +303,7 @@ const App = () => {
     <PaperProvider>
       <CartProvider>
         <NavigationContainer>
-          <AuthCheck />
+          {/* <AuthCheck /> */}
           <MyTabs />
         </NavigationContainer>
       </CartProvider>

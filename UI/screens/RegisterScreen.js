@@ -137,115 +137,113 @@ const RegisterScreen = ({navigation}) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.bgpur}>
       <View style={styles.container_register}>
-        <View>
+        <Card style={styles.register_form}>
           <Text style={styles.textregister}>Registro de usuario</Text>
-          <Card style={styles.form_container}>
-            <Card.Content>
-              <TextInput
-                label="Usuario"
-                mode="outlined"
-                maxLength={10}
-                value={formData.usuario}
-                onChangeText={value => handleChange('usuario', value)}
-              />
-              <TextInput
-                label="Contraseña"
-                secureTextEntry={true}
-                maxLength={8}
-                mode="outlined"
-                value={formData.contraseña}
-                onChangeText={value => handleChange('contraseña', value)}
-              />
-              <TextInput
-                label="Correo"
-                mode="outlined"
-                value={formData.correo}
-                onChangeText={value => handleChange('correo', value)}
-              />
-              <TextInput
-                label="Dirección"
-                mode="outlined"
-                maxLength={30}
-                value={formData.direccion}
-                onChangeText={value => handleChange('direccion', value)}
-              />
-              <TextInput
-                label="Fecha de nacimiento"
-                mode="outlined"
-                placeholder="YYYY/MM/DD"
-                value={formData.fechaNacimiento}
-                onChangeText={value => handleChange('fechaNacimiento', value)}
-              />
+          <Card.Content>
+            <TextInput
+              label="Usuario"
+              style={styles.register_inps}
+              mode="outlined"
+              maxLength={10}
+              value={formData.usuario}
+              onChangeText={value => handleChange('usuario', value)}
+            />
+            <TextInput
+              label="Contraseña"
+              secureTextEntry={true}
+              maxLength={8}
+              mode="outlined"
+              value={formData.contraseña}
+              onChangeText={value => handleChange('contraseña', value)}
+            />
+            <TextInput
+              label="Correo"
+              mode="outlined"
+              value={formData.correo}
+              onChangeText={value => handleChange('correo', value)}
+            />
+            <TextInput
+              label="Dirección"
+              mode="outlined"
+              maxLength={30}
+              value={formData.direccion}
+              onChangeText={value => handleChange('direccion', value)}
+            />
+            <TextInput
+              label="Fecha de nacimiento"
+              mode="outlined"
+              placeholder="YYYY/MM/DD"
+              value={formData.fechaNacimiento}
+              onChangeText={value => handleChange('fechaNacimiento', value)}
+            />
 
-              {/* DEPARTAMENTOS   Y MUNICIPIO*/}
-              <List.Section
-                title={<Text style={styles.listTitle}>Ubicación</Text>}
-                style={styles.ubicacion_container}>
-                {/* Acordeón de Departamento */}
-                <List.Accordion
-                  title={<Text>Departamento</Text>}
-                  left={props => <List.Icon {...props} icon="folder" />}>
-                  {/* Recorrer el departamento como dept renderizando el item de la lista y su valor, al presionar se asigna el el dept al formdata */}
-                  {Object.keys(departamentos).map(dept => (
+            {/* DEPARTAMENTOS   Y MUNICIPIO*/}
+            <List.Section
+              title={<Text style={styles.listTitle}>Ubicación</Text>}
+              style={styles.ubicacion_container}>
+              {/* Acordeón de Departamento */}
+              <List.Accordion
+                title={<Text>Departamento</Text>}
+                left={props => <List.Icon {...props} icon="folder" />}>
+                {/* Recorrer el departamento como dept renderizando el item de la lista y su valor, al presionar se asigna el el dept al formdata */}
+                {Object.keys(departamentos).map(dept => (
+                  <List.Item
+                    key={dept}
+                    title={dept}
+                    onPress={() => handleSelectDept(dept)}
+                  />
+                ))}
+              </List.Accordion>
+
+              {/* Mostrar departamento seleccionado */}
+              {formData.departamento ? (
+                <Text style={styles.selectedText}>
+                  Departamento seleccionado: {formData.departamento}
+                </Text>
+              ) : null}
+
+              {/* Acordeón de Municipio */}
+              <List.Accordion
+                title={<Text>Municipio</Text>}
+                left={props => <List.Icon {...props} icon="folder" />}>
+                {/* Recorremos el array de municipios y asignamos al formdata que se setea de acuerdo al departametno seleccionado*/}
+                {municipios.length > 0 ? (
+                  municipios.map((municipio, index) => (
                     <List.Item
-                      key={dept}
-                      title={dept}
-                      onPress={() => handleSelectDept(dept)}
+                      key={index}
+                      title={municipio}
+                      onPress={() => handleChange('municipio', municipio)}
                     />
-                  ))}
-                </List.Accordion>
+                  ))
+                ) : (
+                  <List.Item title={<Text>Seleccione un departamento</Text>} />
+                )}
+              </List.Accordion>
 
-                {/* Mostrar departamento seleccionado */}
-                {formData.departamento ? (
-                  <Text style={styles.selectedText}>
-                    Departamento seleccionado: {formData.departamento}
-                  </Text>
-                ) : null}
+              {/* Mostrar municipio seleccionado */}
+              {formData.municipio ? (
+                <Text style={styles.selectedText}>
+                  Municipio seleccionado: {formData.municipio}
+                </Text>
+              ) : null}
+            </List.Section>
 
-                {/* Acordeón de Municipio */}
-                <List.Accordion
-                  title={<Text>Municipio</Text>}
-                  left={props => <List.Icon {...props} icon="folder" />}>
-                  {/* Recorremos el array de municipios y asignamos al formdata que se setea de acuerdo al departametno seleccionado*/}
-                  {municipios.length > 0 ? (
-                    municipios.map((municipio, index) => (
-                      <List.Item
-                        key={index}
-                        title={municipio}
-                        onPress={() => handleChange('municipio', municipio)}
-                      />
-                    ))
-                  ) : (
-                    <List.Item
-                      title={<Text>Seleccione un departamento</Text>}
-                    />
-                  )}
-                </List.Accordion>
+            <View style={styles.containerbts_register}>
+              <Button mode="contained" onPress={handleRegister}>
+                Crear cuenta
+              </Button>
 
-                {/* Mostrar municipio seleccionado */}
-                {formData.municipio ? (
-                  <Text style={styles.selectedText}>
-                    Municipio seleccionado: {formData.municipio}
-                  </Text>
-                ) : null}
-              </List.Section>
-
-              <View style={styles.containerbts_register}>
-                <Button mode="contained" onPress={handleRegister}>
-                  Crear cuenta
-                </Button>
-
-                <Button
-                  onPress={() => navigation.navigate('HomeScreen')}
-                  mode="contained-tonal">
-                  Volver al inicio
-                </Button>
-              </View>
-            </Card.Content>
-          </Card>
-        </View>
+              <Button
+                onPress={() => navigation.navigate('HomeScreen')}
+                mode="contained"
+                style={styles.btns_reg}>
+                Volver al inicio
+              </Button>
+            </View>
+          </Card.Content>
+        </Card>
       </View>
     </ScrollView>
   );

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "198822710770",
+    "project_id": "movilapp-33725",
+    "storage_bucket": "movilapp-33725.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198822710770:android:437946353286f62ee4ef6b",
+        "android_client_info": {
+          "package_name": "com.project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhT8qA_mMR9jy_Qeu5ApdNWOQW2BRIHPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

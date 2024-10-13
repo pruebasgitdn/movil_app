@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {View, Alert} from 'react-native';
+import {View, Alert, ImageBackground} from 'react-native';
 import {Card, Text, TextInput, Button} from 'react-native-paper';
 import styles from '../../styles/globalStyles';
 import {CartContext} from '../../context/CartContext';
@@ -58,11 +58,12 @@ const LoginScreen = () => {
     }
   };
   return (
-    <View style={styles.containerlogin}>
-      {/* Plan machete    */}
-      <View style={{}}>
-        <Text style={styles.textlogin}>Iniciar Sesion</Text>
-        <Card style={styles.form_container}>
+    <ImageBackground
+      source={require('../../styles/assets/flogin.jpg')}
+      style={styles.backgroundLogin}>
+      <View style={styles.containerlogin}>
+        <Card style={styles.cardlogin}>
+          <Text style={styles.textlogin}>Iniciar Sesion</Text>
           <Card.Content>
             <TextInput
               label="Usuario"
@@ -82,24 +83,23 @@ const LoginScreen = () => {
             <Button
               mode="contained"
               onPress={() => handleLogin()}
-              style={{
-                marginVertical: 10,
-              }}>
+              style={styles.loginbnt}>
               Entrar
             </Button>
 
             <View style={styles.loginfooter}>
               <Text style={styles.subtitulo}>No tienes una cuenta?</Text>
               <Button
+                style={styles.crearuna}
                 onPress={() => navigation.navigate('RegisterScreen')}
-                mode="contained-tonal">
+                mode="contained">
                 Crear una
               </Button>
             </View>
           </Card.Content>
         </Card>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
