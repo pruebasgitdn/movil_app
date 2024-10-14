@@ -28,11 +28,11 @@ const MisFavoScreen = ({navigation}) => {
       <Card>
         <Card.Content style={styles.card_container_favo}>
           <View>
-            <Image src={item.imgSrc} style={styles.image_favo} />
+            <Image src={item.imgSrc} style={styles.image} />
           </View>
 
           <View style={styles.detalle_card_favo}>
-            <Text style={styles.textodetalle}>{item.descripcion}</Text>
+            <Text style={styles.textodetalle}>{item.description}</Text>
 
             <View style={styles.second_row_favo_card}>
               <View
@@ -85,7 +85,7 @@ const MisFavoScreen = ({navigation}) => {
             ListFooterComponent={
               <View style={styles.footerContainer}>
                 <Button
-                  style={styles.payButton}
+                  style={styles.btnfull}
                   buttonColor="#0ac404"
                   textColor="white"
                   onPress={() => navigation.navigate('ProfileScreen')}>

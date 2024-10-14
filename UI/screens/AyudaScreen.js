@@ -30,6 +30,7 @@ const AyudaScreen = () => {
                 label="Descripcion:"
                 numberOfLines={10}
                 mode="outlined"
+                activeOutlineColor="#417548"
                 style={{height: 200, textAlignVertical: 'top'}}
               />
             </View>

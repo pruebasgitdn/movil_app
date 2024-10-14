@@ -117,21 +117,29 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   list_section: {
-    width: '60%',
+    width: 150,
   },
 
+  btnfull: {
+    width: 350,
+  },
   searchbarcontainer: {
-    backgroundColor: '#b5c7f4',
+    backgroundColor: '#010f26',
     padding: 0,
+  },
+  ofer_art: {
+    display: 'flex',
+    marginRight: 8,
   },
   subsearchbarcontainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 5,
   },
   list_sbar: {
-    backgroundColor: '#b5c7f4',
+    backgroundColor: '#010f26',
   },
   negrita: {
     marginVertical: 3,
@@ -232,6 +240,7 @@ const styles = StyleSheet.create({
 
   containerlistselect: {
     display: 'flex',
+
     flexDirection: 'row',
   },
   container_card: {
@@ -246,6 +255,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 25,
     fontWeight: 'bold',
+    color: '#000000',
   },
   cardContainer: {
     marginVertical: 10,
@@ -261,19 +271,23 @@ const styles = StyleSheet.create({
   itemInfo: {
     flex: 1,
     justifyContent: 'center',
+    gap: 5,
+    marginHorizontal: 7,
   },
   itemMarca: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#000000',
   },
   itemDescripcion: {
     fontSize: 14,
-    color: '#666',
+    color: '#000000',
   },
   itemPrecio: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
+    textAlign: 'center',
     marginVertical: 5,
   },
   quantityContainer: {
@@ -317,6 +331,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     padding: 5,
+    color: '#000000',
   },
   card_aut_home: {
     width: 350,
@@ -440,6 +455,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'baseline',
+    flexWrap: 'wrap',
+    overflow: 'visible',
   },
   second_row_favo_card: {
     display: 'flex',

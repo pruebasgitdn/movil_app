@@ -22,7 +22,6 @@ const ArticulosScreen = ({navigation}) => {
 
   //Acciones del reducer
   const {dispatch, state} = useContext(CartContext);
-  const carrito = state.user?.carrito;
 
   useEffect(() => {
     console.log('Carrito actualizado:', state.user.carrito);
@@ -59,16 +58,6 @@ const ArticulosScreen = ({navigation}) => {
     fetchProducts();
   }, []);
 
-  const handleAddFavo = item => {
-    const isInCart = carrito?.some(cartItem => cartItem.id === item.id);
-    if (!isInCart) {
-      dispatch({type: 'ADD_TO_CART', payload: item});
-      Alert.alert('Carrito', 'Producto añadido al carrito.');
-    } else {
-      Alert.alert('Info', 'El Producto ya esta en el carrito.');
-    }
-  };
-
   const filtredData = selectedCategory
     ? productos.filter(item => item.category === selectedCategory)
     : productos; // Filtrar productos por categoría
@@ -78,9 +67,23 @@ const ArticulosScreen = ({navigation}) => {
   };
 
   const renderItem = ({item}) => {
+    const isInCart = state.user?.carrito?.some(
+      cartItem => cartItem.id === item.id,
+    );
+
     const isFavorite = state.user?.favoritos?.some(
       favItem => favItem.id === item.id,
     );
+
+    const handleAddFavo = item => {
+      if (!isInCart) {
+        dispatch({type: 'ADD_TO_CART', payload: item});
+        Alert.alert('Carrito', 'Producto añadido al carrito.');
+      } else {
+        dispatch({type: 'REMOVE_FROM_CART', payload: item.id});
+        Alert.alert('Favoritos', 'Producto eliminado del carrito');
+      }
+    };
 
     const handleFavorites = () => {
       if (isFavorite) {
@@ -105,9 +108,9 @@ const ArticulosScreen = ({navigation}) => {
               <View style={styles.btns_detalle_prd}>
                 <Button
                   textColor="#fefefd"
-                  buttonColor="#01b45e"
+                  buttonColor={isInCart ? '#730224' : '#06b81a'}
                   onPress={() => handleAddFavo(item)}>
-                  Añadir al carro
+                  {isInCart ? 'Eliminar del Carro' : 'Añadir al Carro'}
                 </Button>
 
                 <Button
@@ -145,7 +148,56 @@ const ArticulosScreen = ({navigation}) => {
                   titleStyle={{color: 'white'}}
                   style={styles.list_sbar}>
                   <List.Item
+                    title="Ropa"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('smartphones')}
+                  />
+                  <List.Item
                     title="Tecnologia"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('smartphones')}
+                  />
+                  <List.Item
+                    title="Aseo"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('smartphones')}
+                  />
+
+                  <List.Item
+                    title="Inmueble"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('smartphones')}
+                  />
+                  <List.Item
+                    title="Automotriz"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('automotive')}
+                  />
+                </List.Accordion>
+              </List.Section>
+              <List.Section style={styles.list_section}>
+                <List.Accordion
+                  title="Marcas"
+                  titleStyle={{color: 'white'}}
+                  style={styles.list_sbar}>
+                  <List.Item
+                    title="Ropa"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('smartphones')}
+                  />
+                  <List.Item
+                    title="Tecnologia"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('smartphones')}
+                  />
+                  <List.Item
+                    title="Aseo"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('smartphones')}
+                  />
+
+                  <List.Item
+                    title="Inmueble"
                     titleStyle={{color: 'white'}}
                     onPress={() => setSelectedCategory('smartphones')}
                   />
@@ -157,13 +209,15 @@ const ArticulosScreen = ({navigation}) => {
                 </List.Accordion>
               </List.Section>
             </View>
-            <Button
-              mode="contained-tonal"
-              onPress={() => {
-                navigation.navigate('OfertasScreen');
-              }}>
-              Ofertas
-            </Button>
+            <View style={styles.ofer_art}>
+              <Button
+                mode="contained-tonal"
+                onPress={() => {
+                  navigation.navigate('OfertasScreen');
+                }}>
+                Ofertas
+              </Button>
+            </View>
           </View>
         </View>
 

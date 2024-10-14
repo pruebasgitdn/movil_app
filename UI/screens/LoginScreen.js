@@ -4,6 +4,7 @@ import {Card, Text, TextInput, Button} from 'react-native-paper';
 import styles from '../../styles/globalStyles';
 import auth from '@react-native-firebase/auth';
 import {CartContext} from '../../context/CartContext';
+import firestore from '@react-native-firebase/firestore';
 
 const LoginScreen = ({navigation}) => {
   // Acceder a la navegación con useNavigation
@@ -58,14 +59,35 @@ const LoginScreen = ({navigation}) => {
   const handleLogin = async () => {
     if (validateForm()) {
       try {
-        await auth().signInWithEmailAndPassword(
+        const userCredential = await auth().signInWithEmailAndPassword(
           formData.correo,
           formData.contraseña,
         );
 
-        dispatch({type: 'LOGIN', payload: formData.correo});
-        Alert.alert('Inicio de sesion exitoso');
-        navigation.navigate('ProfileScreen');
+        //UID del autenticado
+        const userId = userCredential.user.uid;
+
+        //Buscar por el id en la coleccion usuarios
+        const userDoc = await firestore()
+          .collection('usuarios')
+          .doc(userId)
+          .get();
+
+        if (userDoc) {
+          //Extraer la info
+          const userData = userDoc.data();
+
+          dispatch({
+            type: 'LOGIN',
+            payload: {
+              id: userId,
+              ...userData,
+            },
+          });
+
+          Alert.alert('Inicio de sesion exitoso');
+          navigation.navigate('ProfileScreen');
+        }
       } catch (error) {
         if (error.code === 'auth/wrong-password') {
           Alert.alert('Error', 'La contraseña es incorrecta.');

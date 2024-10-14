@@ -9,10 +9,6 @@ const ShopCartScreen = ({navigation}) => {
   const [cantidad, setCantidad] = React.useState(1);
   const {user, isAuthenticated, state, dispatch} = useContext(CartContext);
 
-  const sumarcantidad = () => {
-    setCantidad(cantidad + 1);
-  };
-
   const removeFromCart = obj => {
     const id = obj.id; //Accediendo al id del carro
     dispatch({type: 'REMOVE_FROM_CART', payload: id});
@@ -25,24 +21,35 @@ const ShopCartScreen = ({navigation}) => {
     Alert.alert('Info', 'Se han eliminado los items del carrito de compras.');
   };
 
+  const sumarcantidad = () => {
+    setCantidad(cantidad + 1);
+  };
+
+  const restarcantidad = () => {
+    setCantidad(cantidad - 1);
+  };
+
   const renderItem = ({item}) => (
     <View style={styles.cardContainer}>
       <Card>
         <Card.Content style={styles.cardContent}>
           <View>
             <Image source={{uri: item.imgSrc}} style={styles.image} />
+            <Text style={styles.itemPrecio}>$ {item.price}</Text>
           </View>
           <View style={styles.itemInfo}>
-            <Text style={styles.itemMarca}>{item.marca}</Text>
-            <Text style={styles.itemDescripcion}>{item.descripcion}</Text>
-            <Text style={styles.itemPrecio}>$ {item.precio}</Text>
+            <Text style={styles.itemMarca}>{item.brand}</Text>
+            <Text style={styles.itemDescripcion}>{item.description}</Text>
+
             <View style={styles.quantityContainer}>
               <View style={styles.quantityControls}>
                 <Button mode="outlined" onPress={() => sumarcantidad()}>
                   +
                 </Button>
                 <Text style={styles.itemCantidad}>{cantidad}</Text>
-                <Button mode="outlined">-</Button>
+                <Button mode="outlined" onPress={() => restarcantidad()}>
+                  -
+                </Button>
               </View>
               <Button
                 style={styles.deleteButton}
@@ -55,6 +62,9 @@ const ShopCartScreen = ({navigation}) => {
           </View>
         </Card.Content>
       </Card>
+      <View>
+        <Text style={styles.totalText}>$ {cantidad * item.price} </Text>
+      </View>
     </View>
   );
 
@@ -75,7 +85,7 @@ const ShopCartScreen = ({navigation}) => {
             //Footer de la lista
             ListFooterComponent={
               <View style={styles.footerContainer}>
-                <Text style={styles.totalText}>$ 130.394.234.999</Text>
+                <Text style={styles.totalText}>$</Text>
                 <View style={styles.footerbtns_cart}>
                   <Button
                     style={styles.payButton}

@@ -154,6 +154,7 @@ const RegisterScreen = ({navigation}) => {
           departamento: formData.departamento,
           municipio: formData.municipio,
           contraseña: formData.contraseña,
+          correo: formData.correo,
           favoritos: [],
           carrito: [],
           compras: [],

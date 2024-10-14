@@ -5,20 +5,23 @@ import {CartContext} from '../../context/CartContext';
 import {Card, Button} from 'react-native-paper';
 import {usuarios} from '../../constants';
 import firestore from '@react-native-firebase/firestore'; // Importa Firestore
+import {Icon, MD3Colors} from 'react-native-paper';
 
 const HomeScreen = ({navigation}) => {
+  const [us, setUs] = useState('');
+
   const {state} = useContext(CartContext);
   useEffect(() => {
     const s = async () => {
       try {
-        console.log('autentic', state.isAuthenticated);
         console.log('user', state.user);
+        setUs(state?.user?.usuario);
       } catch (error) {
         console.error('error', error);
       }
     };
     s();
-  }, [state]);
+  }, [state.user]);
 
   return (
     <View style={styles.container}>
@@ -33,7 +36,7 @@ const HomeScreen = ({navigation}) => {
                   <Text
                     style={
                       styles.aut_text_home
-                    }>{`! Bienvenido, ${state.user} !`}</Text>
+                    }>{`! Bienvenido, ${us} !`}</Text>
                   <Button
                     mode="contained"
                     style={styles.homebtn}

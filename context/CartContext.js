@@ -28,15 +28,39 @@ const cartReducer = (state, action) => {
     case 'LOGIN':
       return {
         ...state,
-        user: action.payload, // Aquí se establece el usuario logueado
         isAuthenticated: true,
+        user: {
+          id: action.payload.id,
+          usuario: action.payload.usuario,
+          contraseña: action.payload.contraseña,
+          correo: action.payload.correo,
+          direccion: action.payload.direccion,
+          fechaNacimiento: action.payload.fechaNacimiento,
+          departamento: action.payload.departamento,
+          municipio: action.payload.municipio,
+          favoritos: action.payload.favoritos || [],
+          carrito: action.payload.carrito || [],
+          compras: action.payload.compras || [],
+        },
       };
 
     case 'LOGOUT':
       return {
         ...state,
-        user: null, // Al cerrar sesión, el usuario vuelve a ser null
         isAuthenticated: false,
+        user: {
+          id: '',
+          usuario: '',
+          contraseña: '',
+          correo: '',
+          direccion: '',
+          fechaNacimiento: '',
+          departamento: '',
+          municipio: '',
+          favoritos: [],
+          carrito: [],
+          compras: [],
+        },
       };
 
     case 'ADD_TO_CART':
@@ -44,7 +68,11 @@ const cartReducer = (state, action) => {
         ...state,
         user: {
           ...state.user,
-          carrito: [...(state.user.carrito || []), action.payload],
+          carrito: state.user.carrito.some(
+            item => item.id === action.payload.id,
+          )
+            ? state.user.carrito
+            : [...(state.user.carrito || []), action.payload],
         },
       };
     case 'REMOVE_FROM_CART':
@@ -71,7 +99,11 @@ const cartReducer = (state, action) => {
         ...state,
         user: {
           ...state.user,
-          favoritos: [...state.user.favoritos, action.payload],
+          favoritos: state.user.favoritos.some(
+            item => item.id === action.payload.id,
+          )
+            ? state.user.favoritos
+            : [...(state.user.favoritos || []), action.payload],
         },
       };
     case 'REMOVE_FROM_FAVORITES':

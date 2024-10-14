@@ -1,17 +1,20 @@
 import React, {useContext, useEffect} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Provider as PaperProvider, Avatar, Button} from 'react-native-paper';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {
+  Provider as PaperProvider,
+  Avatar,
+  Button,
+  MD3Colors,
+} from 'react-native-paper';
+import {NavigationContainer} from '@react-navigation/native';
 import styles from './styles/globalStyles';
-
 import HomeScreen from './UI/screens/HomeScreen';
 import ShopCartScreen from './UI/screens/ShopCartScreen';
 import ProfileScreen from './UI/screens/ProfileScreen';
 import MisComprasScreen from './UI/screens/MisComprasScreen';
 import MisFavoScreen from './UI/screens/MisFavoScreen';
-
-import {item_detalle_ejemplo, user_ejemplo} from './constants';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import LoginScreen from './UI/screens/LoginScreen';
 import RegisterScreen from './UI/screens/RegisterScreen';
 import ArticulosScreen from './UI/screens/ArticulosScreen';
@@ -20,8 +23,6 @@ import AyudaScreen from './UI/screens/AyudaScreen';
 import DetalleScreen from './UI/screens/DetalleScreen';
 import SucursalScreen from './UI/screens/SucursalScreen';
 import {CartContext, CartProvider} from './context/CartContext';
-import {View, Text} from 'react-native';
-import AuthCheck from './UI/components/AuthCheck';
 import TecnoProducts from './UI/components/TecnoProducts';
 import RopaProducts from './UI/components/RopaProducts';
 import AseoProducts from './UI/components/AseoProducts';
@@ -283,17 +284,57 @@ const App = () => {
         screenOptions={{
           headerShown: false,
         }}>
-        <Tab.Screen name="Inicio" component={Home} />
+        <Tab.Screen
+          name="Inicio"
+          component={Home}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <Icon name="home" color={color} size={size} />
+            ),
+          }}
+        />
 
         {state.isAuthenticated && (
           <>
-            <Tab.Screen name="Compras" component={Cart} />
-            <Tab.Screen name="Perfil" component={Profile} />
-            <Tab.Screen name="Productos" component={Products} />
+            <Tab.Screen
+              name="Compras"
+              component={Cart}
+              options={{
+                tabBarIcon: ({color, size}) => (
+                  <Icon name="line-chart" color={color} size={size} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Perfil"
+              component={Profile}
+              options={{
+                tabBarIcon: ({color, size}) => (
+                  <Icon name="user" color={color} size={size} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Productos"
+              component={Products}
+              options={{
+                tabBarIcon: ({color, size}) => (
+                  <Icon name="shopping-cart" color={color} size={size} />
+                ),
+              }}
+            />
           </>
         )}
 
-        <Tab.Screen name="Soporte" component={AyudaSoporte} />
+        <Tab.Screen
+          name="Soporte"
+          component={AyudaSoporte}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <Icon name="wrench" color={color} size={size} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     );
   }
