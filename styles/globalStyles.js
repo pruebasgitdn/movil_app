@@ -318,7 +318,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     padding: 5,
   },
-
+  card_aut_home: {
+    width: 350,
+  },
+  aut_text_home: {
+    color: '#000000',
+    textAlign: 'center',
+    fontSize: 20,
+    fontStyle: 'italic',
+  },
   containerlogin: {
     alignItems: 'center',
     top: '58%',

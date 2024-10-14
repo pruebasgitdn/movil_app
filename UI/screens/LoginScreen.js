@@ -1,60 +1,80 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, Alert, ImageBackground} from 'react-native';
 import {Card, Text, TextInput, Button} from 'react-native-paper';
 import styles from '../../styles/globalStyles';
+import auth from '@react-native-firebase/auth';
 import {CartContext} from '../../context/CartContext';
-import {usuarios} from '../../constants';
-import {useNavigation} from '@react-navigation/native'; // Importar useNavigation
 
-const LoginScreen = () => {
-  //Extraer del contexto
-  const {setUser, setIsAuthenticated, user, isAuthenticated, dispatch, state} =
-    useContext(CartContext);
-
+const LoginScreen = ({navigation}) => {
   // Acceder a la navegación con useNavigation
-  const navigation = useNavigation();
-  const [usuario, setUsuario] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [usuarioError, setUsuarioError] = React.useState(null);
-  const [passwordError, setPasswordError] = React.useState(null);
+  const {dispatch, state} = useContext(CartContext);
+  const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    contraseña: '',
+    correo: '',
+  });
 
-  // const handleUserValidation = text => {
-  //   const usuarioRegex = /^[a-zA-Z0-9]{1,10}$/;
-  //   if (usuarioRegex.test(text)) {
-  //     setUsuarioError(null);
-  //   } else {
-  //     setUsuarioError('Usuario debe contener al menos 10 caracteres');
-  //   }
-  //   setUser(text);
-  // };
+  useEffect(() => {
+    if (state.isAuthenticated) {
+      navigation.navigate('HomeScreen');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.isAuthenticated]);
 
-  // const handlePasswordValidation = text => {
-  //   const passwordRegex =
-  //     /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+=-{};:,.<>\/?]).{1,8}$/;
-  //   if (passwordRegex.test(text)) {
-  //     setPasswordError(null);
-  //   } else {
-  //     setPasswordError('Contraseña debe contener al menos 8 caracteres');
-  //   }
-  //   setPassword(text);
-  // };
+  const handleChange = (name, value) => {
+    setFormData({...formData, [name]: value});
+    setErrors({...errors, [name]: ''});
+  };
 
-  const handleLogin = () => {
-    // Buscar en usuarios[] por user si en .crreo == al seteado en el form y lo mismo en contraseña con password
-    const userFound = usuarios.find(
-      userr => userr.usuario === usuario && userr.contraseña === password,
-    );
+  const validateForm = () => {
+    const {contraseña, correo} = formData;
 
-    if (userFound) {
-      // Si el usuario existe, actualizar el estado de autenticación
-      // setUser(userFound);
-      setIsAuthenticated(true);
-      dispatch({type: 'LOGIN', payload: userFound});
-      Alert.alert('Login exitoso', `Bienvenido ${userFound.usuario}`);
-      navigation.navigate('ProfileScreen');
-    } else {
-      // Si no se encuentra, mostrar un mensaje de error
-      Alert.alert('Error', 'Credenciales incorrectas. Intenta nuevamente.');
+    let valid = true;
+    let newErrors = {};
+
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+=-{};:,.<>\/?])(?=.*[0-9]).{1,8}$/;
+    if (!contraseña) {
+      newErrors.contraseña = 'La contraseña es obligatoria.';
+      valid = false;
+    } else if (!passwordRegex.test(contraseña)) {
+      newErrors.contraseña =
+        'La contraseña debe tener máximo 8 caracteres, al menos una mayúscula, una letra, un número y un carácter especial.';
+      valid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!correo) {
+      newErrors.correo = 'El correo es obligatorio.';
+      valid = false;
+    } else if (!emailRegex.test(correo)) {
+      newErrors.correo = 'El correo electrónico no es válido.';
+      valid = false;
+    }
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleLogin = async () => {
+    if (validateForm()) {
+      try {
+        await auth().signInWithEmailAndPassword(
+          formData.correo,
+          formData.contraseña,
+        );
+
+        dispatch({type: 'LOGIN', payload: formData.correo});
+        Alert.alert('Inicio de sesion exitoso');
+        navigation.navigate('ProfileScreen');
+      } catch (error) {
+        if (error.code === 'auth/wrong-password') {
+          Alert.alert('Error', 'La contraseña es incorrecta.');
+        } else if (error.code === 'auth/user-not-found') {
+          Alert.alert('Error', 'No se encontró un usuario con este correo.');
+        } else {
+          Alert.alert('Error', error.message);
+        }
+      }
     }
   };
   return (
@@ -66,10 +86,9 @@ const LoginScreen = () => {
           <Text style={styles.textlogin}>Iniciar Sesion</Text>
           <Card.Content>
             <TextInput
-              label="Usuario"
+              label="Email"
               mode="outlined"
-              maxLength={10}
-              onChangeText={text => setUsuario(text)}
+              onChangeText={text => handleChange('correo', text)}
             />
 
             <TextInput
@@ -77,7 +96,7 @@ const LoginScreen = () => {
               mode="outlined"
               maxLength={8}
               secureTextEntry={true}
-              onChangeText={text => setPassword(text)}
+              onChangeText={text => handleChange('contraseña', text)}
             />
 
             <Button

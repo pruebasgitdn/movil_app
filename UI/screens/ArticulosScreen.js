@@ -16,7 +16,7 @@ import {products} from '../../constants';
 import firestore from '@react-native-firebase/firestore';
 
 const ArticulosScreen = ({navigation}) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [productos, setProductos] = useState([]);
 
@@ -44,7 +44,13 @@ const ArticulosScreen = ({navigation}) => {
           id: doc.id,
           ...doc.data(), // Extrae los datos del documento
         }));
-        setProductos(productosData);
+
+        // Verifica si productosData no está vacío antes de setear
+        if (productosData && productosData.length > 0) {
+          setProductos(productosData);
+        } else {
+          console.log('No se encontraron productos.');
+        }
       } catch (error) {
         console.log('Error al obtener los productos', error);
       }
@@ -54,7 +60,7 @@ const ArticulosScreen = ({navigation}) => {
   }, []);
 
   const handleAddFavo = item => {
-    const isInCart = carrito.some(cartItem => cartItem.id === item.id);
+    const isInCart = carrito?.some(cartItem => cartItem.id === item.id);
     if (!isInCart) {
       dispatch({type: 'ADD_TO_CART', payload: item});
       Alert.alert('Carrito', 'Producto añadido al carrito.');
@@ -72,7 +78,7 @@ const ArticulosScreen = ({navigation}) => {
   };
 
   const renderItem = ({item}) => {
-    const isFavorite = state.user.favoritos.some(
+    const isFavorite = state.user?.favoritos?.some(
       favItem => favItem.id === item.id,
     );
 

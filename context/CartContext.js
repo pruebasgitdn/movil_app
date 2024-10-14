@@ -100,14 +100,11 @@ const cartReducer = (state, action) => {
 //Proovedor del contexto
 
 export const CartProvider = ({children}) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({});
   const [state, dispatch] = useReducer(cartReducer, initialState);
   return (
     <CartContext.Provider
       value={{
-        isAuthenticated,
-        setIsAuthenticated,
         user,
         setUser,
         state,

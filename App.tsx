@@ -289,10 +289,10 @@ const App = () => {
           <>
             <Tab.Screen name="Compras" component={Cart} />
             <Tab.Screen name="Perfil" component={Profile} />
+            <Tab.Screen name="Productos" component={Products} />
           </>
         )}
 
-        <Tab.Screen name="Productos" component={Products} />
         <Tab.Screen name="Soporte" component={AyudaSoporte} />
       </Tab.Navigator>
     );
