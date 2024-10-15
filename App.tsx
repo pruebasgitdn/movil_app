@@ -323,18 +323,18 @@ const App = () => {
                 ),
               }}
             />
+
+            <Tab.Screen
+              name="Soporte"
+              component={AyudaSoporte}
+              options={{
+                tabBarIcon: ({color, size}) => (
+                  <Icon name="wrench" color={color} size={size} />
+                ),
+              }}
+            />
           </>
         )}
-
-        <Tab.Screen
-          name="Soporte"
-          component={AyudaSoporte}
-          options={{
-            tabBarIcon: ({color, size}) => (
-              <Icon name="wrench" color={color} size={size} />
-            ),
-          }}
-        />
       </Tab.Navigator>
     );
   }

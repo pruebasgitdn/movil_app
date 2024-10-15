@@ -110,12 +110,14 @@ const LoginScreen = ({navigation}) => {
             <TextInput
               label="Email"
               mode="outlined"
+              activeOutlineColor="#228ef0"
               onChangeText={text => handleChange('correo', text)}
             />
 
             <TextInput
               label="Contraseña"
               mode="outlined"
+              activeOutlineColor="#228ef0"
               maxLength={8}
               secureTextEntry={true}
               onChangeText={text => handleChange('contraseña', text)}

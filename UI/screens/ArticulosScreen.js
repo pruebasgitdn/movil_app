@@ -35,28 +35,35 @@ const ArticulosScreen = ({navigation}) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const productosCollection = await firestore()
-          .collection('products')
-          .limit(10)
-          .get();
+        let productosCollection;
+
+        if (selectedCategory) {
+          // Obtener todos los productos de la categoría seleccionada
+          productosCollection = await firestore()
+            .collection('products')
+            .where('category', '==', selectedCategory)
+            .get();
+        } else {
+          // Obtener los primeros 10 productos si no hay categoría seleccionada
+          productosCollection = await firestore()
+            .collection('products')
+            .limit(10)
+            .get();
+        }
+
         const productosData = productosCollection.docs.map(doc => ({
           id: doc.id,
-          ...doc.data(), // Extrae los datos del documento
+          ...doc.data(),
         }));
 
-        // Verifica si productosData no está vacío antes de setear
-        if (productosData && productosData.length > 0) {
-          setProductos(productosData);
-        } else {
-          console.log('No se encontraron productos.');
-        }
+        setProductos(productosData);
       } catch (error) {
         console.log('Error al obtener los productos', error);
       }
     };
 
     fetchProducts();
-  }, []);
+  }, [selectedCategory]);
 
   const filtredData = selectedCategory
     ? productos.filter(item => item.category === selectedCategory)
@@ -144,67 +151,36 @@ const ArticulosScreen = ({navigation}) => {
             <View style={styles.containerlistselect}>
               <List.Section style={styles.list_section}>
                 <List.Accordion
-                  title="Categorias"
+                  title={
+                    selectedCategory ? <>{selectedCategory}</> : <>Categoria</>
+                  }
                   titleStyle={{color: 'white'}}
                   style={styles.list_sbar}>
                   <List.Item
                     title="Ropa"
                     titleStyle={{color: 'white'}}
-                    onPress={() => setSelectedCategory('smartphones')}
+                    onPress={() => setSelectedCategory('Ropa')}
                   />
                   <List.Item
                     title="Tecnologia"
                     titleStyle={{color: 'white'}}
-                    onPress={() => setSelectedCategory('smartphones')}
+                    onPress={() => setSelectedCategory('Tecnología')}
                   />
                   <List.Item
                     title="Aseo"
                     titleStyle={{color: 'white'}}
-                    onPress={() => setSelectedCategory('smartphones')}
+                    onPress={() => setSelectedCategory('Aseo')}
                   />
 
                   <List.Item
                     title="Inmueble"
                     titleStyle={{color: 'white'}}
-                    onPress={() => setSelectedCategory('smartphones')}
+                    onPress={() => setSelectedCategory('Hogar')}
                   />
                   <List.Item
                     title="Automotriz"
                     titleStyle={{color: 'white'}}
-                    onPress={() => setSelectedCategory('automotive')}
-                  />
-                </List.Accordion>
-              </List.Section>
-              <List.Section style={styles.list_section}>
-                <List.Accordion
-                  title="Marcas"
-                  titleStyle={{color: 'white'}}
-                  style={styles.list_sbar}>
-                  <List.Item
-                    title="Ropa"
-                    titleStyle={{color: 'white'}}
-                    onPress={() => setSelectedCategory('smartphones')}
-                  />
-                  <List.Item
-                    title="Tecnologia"
-                    titleStyle={{color: 'white'}}
-                    onPress={() => setSelectedCategory('smartphones')}
-                  />
-                  <List.Item
-                    title="Aseo"
-                    titleStyle={{color: 'white'}}
-                    onPress={() => setSelectedCategory('smartphones')}
-                  />
-
-                  <List.Item
-                    title="Inmueble"
-                    titleStyle={{color: 'white'}}
-                    onPress={() => setSelectedCategory('smartphones')}
-                  />
-                  <List.Item
-                    title="Automotriz"
-                    titleStyle={{color: 'white'}}
-                    onPress={() => setSelectedCategory('automotive')}
+                    onPress={() => setSelectedCategory('Autos')}
                   />
                 </List.Accordion>
               </List.Section>
@@ -277,7 +253,13 @@ const ArticulosScreen = ({navigation}) => {
           </View>
 
           <View>
-            <Text style={styles.text_pr}>Productos</Text>
+            <Text style={styles.text_pr}>
+              {selectedCategory ? (
+                <>Categoria {selectedCategory}</>
+              ) : (
+                <>Algunos de nuestros productos</>
+              )}
+            </Text>
             <FlatList
               data={productos}
               renderItem={renderItem}

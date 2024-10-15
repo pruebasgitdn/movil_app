@@ -184,6 +184,7 @@ const RegisterScreen = ({navigation}) => {
               label="Usuario"
               style={styles.register_inps}
               mode="outlined"
+              activeOutlineColor="#090c77"
               maxLength={10}
               value={formData.usuario}
               onChangeText={value => handleChange('usuario', value)}
@@ -195,6 +196,7 @@ const RegisterScreen = ({navigation}) => {
             <TextInput
               label="Contraseña"
               secureTextEntry={true}
+              activeOutlineColor="#090c77"
               maxLength={8}
               mode="outlined"
               value={formData.contraseña}
@@ -207,6 +209,7 @@ const RegisterScreen = ({navigation}) => {
             <TextInput
               label="Correo"
               mode="outlined"
+              activeOutlineColor="#090c77"
               value={formData.correo}
               onChangeText={value => handleChange('correo', value)}
             />
@@ -216,6 +219,7 @@ const RegisterScreen = ({navigation}) => {
 
             <TextInput
               label="Dirección"
+              activeOutlineColor="#090c77"
               mode="outlined"
               maxLength={30}
               value={formData.direccion}
@@ -227,6 +231,7 @@ const RegisterScreen = ({navigation}) => {
 
             <TextInput
               label="Fecha de nacimiento"
+              activeOutlineColor="#090c77"
               mode="outlined"
               placeholder="YYYY/MM/DD"
               value={formData.fechaNacimiento}
