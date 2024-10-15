@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   bgpur: {
-    backgroundColor: '#57069a',
+    backgroundColor: '#062161',
   },
   loginfooter: {
     display: 'flex',
