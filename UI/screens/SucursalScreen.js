@@ -17,7 +17,9 @@ import {
 import styles from '../../styles/globalStyles';
 import {carros_oferta} from '../../constants';
 
-const SucursalScreen = () => {
+const SucursalScreen = ({route}) => {
+  const {aux, total} = route.params;
+
   const [text, setText] = React.useState('');
   const [value, setValue] = React.useState('');
   const renderItem = ({item}) => (
@@ -29,9 +31,12 @@ const SucursalScreen = () => {
           </View>
 
           <View style={styles.info_product_sucursal}>
-            <Text style={styles.negrita}>{item.marca}</Text>
-            <Text style={styles.textodetalle}>{item.descripcion}</Text>
-            <Text style={styles.negrita}>Precio: {item.precio}</Text>
+            <Text style={styles.negrita}>{item.brand}</Text>
+            <Text style={styles.textodetalle}>{item.description}</Text>
+            <Text style={styles.negrita}>
+              Precio:{' '}
+              {item.offer === true ? <>{item.offerprice}</> : <>{item.price}</>}
+            </Text>
             <Text style={styles.negrita}>Cantidad: 1</Text>
           </View>
         </Card.Content>
@@ -46,7 +51,7 @@ const SucursalScreen = () => {
             <Text style={styles.textlogin}>Sucursal de Pago.</Text>
           </View>
           <FlatList
-            data={carros_oferta}
+            data={aux}
             renderItem={renderItem}
             keyExtractor={item => item.id}
           />
@@ -79,7 +84,7 @@ const SucursalScreen = () => {
                   ]}
                 />
                 <View style={styles.sucursal_total_pagar}>
-                  <Text style={styles.negrita}>$ 130.394.234.999</Text>
+                  <Text style={styles.negrita}>$ {total}</Text>
                   <Button buttonColor="#0ac404" textColor="white">
                     PAGAR
                   </Button>

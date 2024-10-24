@@ -125,6 +125,28 @@ const cartReducer = (state, action) => {
         },
       };
 
+    case 'EDIT_PROFILE':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload, // Solo actualiza los campos modificados
+        },
+      };
+
+    case 'UPDATE_CART_ITEM':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          carrito: state.user.carrito.map(item =>
+            item.id === action.payload.id
+              ? {...item, quantity: action.payload.quantity} // Actualiza la cantidad
+              : item,
+          ),
+        },
+      };
+
     default:
       return state;
   }

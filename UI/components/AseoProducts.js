@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, Text, Pressable, ScrollView} from 'react-native';
+import React, {useEffect, useState, useContext} from 'react';
+import {View, FlatList, Text, Pressable, ScrollView, Alert} from 'react-native';
 import {Searchbar, List, Button, Card} from 'react-native-paper';
 import styles from '../../styles/globalStyles';
-import {products} from '../../constants';
 import firestore from '@react-native-firebase/firestore';
+import {CartContext} from '../../context/CartContext';
 
 const AseoProducts = ({navigation}) => {
   const [productos, setProductos] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const {dispatch, state} = useContext(CartContext);
 
   const handlePress = item => {
     navigation.navigate('DetalleScreen', {item});
@@ -15,9 +17,17 @@ const AseoProducts = ({navigation}) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const productosCollection = await firestore()
-          .collection('products')
-          .get();
+        let productosCollection;
+
+        if (selectedCategory) {
+          productosCollection = await firestore()
+            .collection('products')
+            .where('brand', '==', selectedCategory)
+            .get();
+        } else {
+          productosCollection = await firestore().collection('products').get();
+        }
+
         const productosData = productosCollection.docs.map(doc => ({
           id: doc.id,
           ...doc.data(), // Extrae los datos del documento
@@ -30,9 +40,37 @@ const AseoProducts = ({navigation}) => {
     };
 
     fetchProducts();
-  }, []);
+  }, [selectedCategory]);
 
   const renderItem = ({item}) => {
+    const isInCart = state.user?.carrito?.some(
+      cartItem => cartItem.id === item.id,
+    );
+
+    const isFavorite = state.user?.favoritos?.some(
+      favItem => favItem.id === item.id,
+    );
+
+    const handleAddFavo = item => {
+      if (!isInCart) {
+        dispatch({type: 'ADD_TO_CART', payload: item});
+        Alert.alert('Carrito', 'Producto añadido al carrito.');
+      } else {
+        dispatch({type: 'REMOVE_FROM_CART', payload: item.id});
+        Alert.alert('Favoritos', 'Producto eliminado del carrito');
+      }
+    };
+
+    const handleFavorites = () => {
+      if (isFavorite) {
+        dispatch({type: 'REMOVE_FROM_FAVORITES', payload: item.id});
+        Alert.alert('Favoritos', 'Producto eliminado de favoritos.');
+      } else {
+        dispatch({type: 'ADD_TO_FAVORITES', payload: item});
+        Alert.alert('Favoritos', 'Producto añadido a favoritos.');
+      }
+    };
+
     return (
       <View style={styles.ss}>
         <Pressable style={styles.gridArts} onPress={() => handlePress(item)}>
@@ -44,12 +82,28 @@ const AseoProducts = ({navigation}) => {
               <Text>Categoria: {item.category}</Text>
               <Text style={styles.descripcion}>{item.description}</Text>
               <Text style={styles.negrita}>Precio: ${item.price}</Text>
+              {item.offer === true ? (
+                <Text style={styles.precios}>
+                  Descuento: ${item.offerprice}
+                </Text>
+              ) : (
+                <Text></Text>
+              )}
               <View style={styles.btns_detalle_prd}>
-                <Button textColor="#fefefd" buttonColor="#01b45e">
-                  Añadir al carro
+                <Button
+                  icon={isInCart ? 'cart-arrow-down' : 'cart-plus'}
+                  textColor="#ffffff"
+                  buttonColor={isInCart ? '#730224' : '#06b81a'}
+                  onPress={() => handleAddFavo(item)}>
+                  {}
                 </Button>
-                <Button buttonColor="#02243d" textColor="#fefefd">
-                  Favoritos
+
+                <Button
+                  icon={isFavorite ? 'heart-broken' : 'heart'}
+                  textColor="#fefefd"
+                  buttonColor={isFavorite ? '#ff0226' : '#02243d'}
+                  onPress={handleFavorites}>
+                  {}
                 </Button>
               </View>
             </Card.Content>
@@ -76,12 +130,40 @@ const AseoProducts = ({navigation}) => {
                 <List.Accordion
                   title="Marca"
                   titleStyle={{color: 'white'}}
-                  style={styles.list_sbar}>
-                  <List.Item title="Samsung" titleStyle={{color: 'white'}} />
-                  <List.Item title="Motorola" titleStyle={{color: 'white'}} />
-                  <List.Item title="Lenovo" titleStyle={{color: 'white'}} />
-                  <List.Item title="Huwaei" titleStyle={{color: 'white'}} />
-                  <List.Item title="Apple" titleStyle={{color: 'white'}} />
+                  style={styles.list_sbar}
+                  right={props => (
+                    <List.Icon {...props} icon="tag" color="#ffffff" />
+                  )}>
+                  <List.Item
+                    title="Ariel"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('Ariel')}
+                  />
+                  <List.Item
+                    title="Dove"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('Dove')}
+                  />
+                  <List.Item
+                    title="Downy"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('Downy')}
+                  />
+                  <List.Item
+                    title="Scott"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('Scott')}
+                  />
+                  <List.Item
+                    title="Axión"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('Axion')}
+                  />
+                  <List.Item
+                    title="Lysol"
+                    titleStyle={{color: 'white'}}
+                    onPress={() => setSelectedCategory('Lysol')}
+                  />
                 </List.Accordion>
               </List.Section>
             </View>
@@ -96,7 +178,9 @@ const AseoProducts = ({navigation}) => {
         </View>
 
         <View>
-          <Text style={styles.text_pr}>Productos de Aseo</Text>
+          <Text style={styles.text_pr}>
+            {selectedCategory ? `Productos ${selectedCategory}` : `Aseo`}
+          </Text>
 
           <FlatList
             data={productos}

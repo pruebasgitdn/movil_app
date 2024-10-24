@@ -47,11 +47,31 @@ const styles = StyleSheet.create({
     width: '70%',
     marginTop: 10,
   },
+  form_edit: {
+    display: 'flex',
+    width: '90%',
+    paddingHorizontal: 10,
+  },
+  ubi: {
+    color: '#000000',
+    textAlign: 'center',
+    padding: 15,
+  },
+  ofert_p: {
+    color: '#000000',
+    fontSize: 12,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginBottom: 10,
+  },
   titulo_home: {
     textAlign: 'center',
     fontSize: 23,
     fontWeight: 'bold',
     padding: 15,
+    color: '#000000',
+  },
+  cat: {
     color: '#000000',
   },
   card_home: {
@@ -120,6 +140,13 @@ const styles = StyleSheet.create({
     width: 150,
   },
 
+  containerofertasnav: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  sectionfertas: {
+    width: '50%',
+  },
   btnfull: {
     width: 350,
   },
@@ -138,12 +165,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 5,
   },
+  precios: {
+    fontSize: 13,
+    marginBottom: 5,
+    color: '#000000',
+  },
   list_sbar: {
     backgroundColor: '#010f26',
   },
   negrita: {
     marginVertical: 3,
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: '500',
     color: '#000000',
   },
@@ -175,6 +207,7 @@ const styles = StyleSheet.create({
   titlecardetalle: {
     textAlign: 'center',
     fontSize: 25,
+    color: '#000000',
     fontWeight: '700',
   },
   //DETALLE
@@ -301,19 +334,20 @@ const styles = StyleSheet.create({
   itemCantidad: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#000000',
+  },
+  blocktotal: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginVertical: 10,
+    flexDirection: 'row',
+    width: '100%',
   },
   deleteButton: {
     marginTop: 10,
   },
   footerContainer: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 30,
-    alignItems: 'center',
-    marginRight: 'auto',
-    marginLeft: 'auto',
-    marginVertical: 20,
   },
   footerbtns_cart: {
     display: 'flex',
@@ -325,6 +359,13 @@ const styles = StyleSheet.create({
   },
   payButton: {
     paddingHorizontal: 20,
+    width: '100%',
+  },
+  totalTO: {
+    color: '#000000',
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: '700',
   },
   textlogin: {
     textAlign: 'center',
@@ -543,6 +584,7 @@ const styles = StyleSheet.create({
     margin: 2,
     alignContent: 'center',
   },
+
   card_total: {
     width: '100%',
   },
@@ -553,6 +595,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontStyle: 'italic',
     fontWeight: 'bold',
+  },
+  offer_txt: {
+    color: '#000000',
+    fontSize: 12,
+    textAlign: 'justify',
   },
   card_art: {
     display: 'flex',
@@ -584,7 +631,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     gap: 10,
-    flexDirection: 'column',
+    flexDirection: 'row',
   },
 });
 

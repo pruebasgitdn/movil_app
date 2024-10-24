@@ -1,14 +1,9 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {
-  Provider as PaperProvider,
-  Avatar,
-  Button,
-  MD3Colors,
-} from 'react-native-paper';
+import {Provider as PaperProvider} from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
-import styles from './styles/globalStyles';
+
 import HomeScreen from './UI/screens/HomeScreen';
 import ShopCartScreen from './UI/screens/ShopCartScreen';
 import ProfileScreen from './UI/screens/ProfileScreen';
@@ -29,6 +24,7 @@ import AseoProducts from './UI/components/AseoProducts';
 import AutoProducts from './UI/components/AutoProducts';
 import HogarProducts from './UI/components/HogarProducts';
 import {importDataToFirestore} from './android/app/src/services/fireStoreImport';
+import EditProfile from './UI/components/EditProfile';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -107,6 +103,13 @@ const App = () => {
           }}
           name="MisFavoScreen"
           component={MisFavoScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+          }}
+          name="EditProfile"
+          component={EditProfile}
         />
       </Stack.Navigator>
     );

@@ -246,7 +246,7 @@ const RegisterScreen = ({navigation}) => {
               title={<Text style={styles.listTitle}>Ubicación</Text>}
               style={styles.ubicacion_container}>
               <List.Accordion
-                title={<Text>Departamento</Text>}
+                title="Departamento"
                 left={props => <List.Icon {...props} icon="folder" />}>
                 {Object.keys(departamentos).map(dept => (
                   <List.Item
@@ -264,7 +264,7 @@ const RegisterScreen = ({navigation}) => {
               ) : null}
 
               <List.Accordion
-                title={<Text>Municipio</Text>}
+                title="Municipio"
                 left={props => <List.Icon {...props} icon="folder" />}>
                 {municipios.length > 0 ? (
                   municipios.map((municipio, index) => (

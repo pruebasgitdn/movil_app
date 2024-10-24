@@ -9,10 +9,9 @@ import {
   ScrollView,
 } from 'react-native';
 import styles from '../../styles/globalStyles';
-import {Searchbar, Icon, Badge} from 'react-native-paper';
+import {Searchbar} from 'react-native-paper';
 import {List, Button, Card} from 'react-native-paper';
 import {CartContext} from '../../context/CartContext';
-import {products} from '../../constants';
 import firestore from '@react-native-firebase/firestore';
 
 const ArticulosScreen = ({navigation}) => {
@@ -38,13 +37,13 @@ const ArticulosScreen = ({navigation}) => {
         let productosCollection;
 
         if (selectedCategory) {
-          // Obtener todos los productos de la categoría seleccionada
+          // obtener los productos de la tan seleccionada
           productosCollection = await firestore()
             .collection('products')
             .where('category', '==', selectedCategory)
             .get();
         } else {
-          // Obtener los primeros 10 productos si no hay categoría seleccionada
+          // obtener los primeros 10 productos si no hay tan seleccionada
           productosCollection = await firestore()
             .collection('products')
             .limit(10)
@@ -67,7 +66,7 @@ const ArticulosScreen = ({navigation}) => {
 
   const filtredData = selectedCategory
     ? productos.filter(item => item.category === selectedCategory)
-    : productos; // Filtrar productos por categoría
+    : productos; // Filtrar productos x categoria
 
   const handlePress = item => {
     navigation.navigate('DetalleScreen', {item});
@@ -109,22 +108,31 @@ const ArticulosScreen = ({navigation}) => {
             <Card.Title title={item.brand} titleStyle={styles.negrita} />
             <Card.Cover src={item?.imgSrc} />
             <Card.Content>
-              <Text>Categoria: {item.category}</Text>
+              <Text style={styles.cat}>Categoria: {item.category}</Text>
               <Text style={styles.descripcion}>{item.description}</Text>
-              <Text style={styles.negrita}>Precio: {item.price}</Text>
+              <Text style={styles.precios}>Precio: {item.price}</Text>
+
+              {item.offer === true ? (
+                <Text style={styles.precios}>Descuento: {item.offerprice}</Text>
+              ) : (
+                <Text></Text>
+              )}
+
               <View style={styles.btns_detalle_prd}>
                 <Button
-                  textColor="#fefefd"
+                  icon={isInCart ? 'cart-arrow-down' : 'cart-plus'}
+                  textColor="#ffffff"
                   buttonColor={isInCart ? '#730224' : '#06b81a'}
                   onPress={() => handleAddFavo(item)}>
-                  {isInCart ? 'Eliminar del Carro' : 'Añadir al Carro'}
+                  {}
                 </Button>
 
                 <Button
+                  icon={isFavorite ? 'heart-broken' : 'heart'}
                   textColor="#fefefd"
                   buttonColor={isFavorite ? '#ff0226' : '#02243d'}
                   onPress={handleFavorites}>
-                  {isFavorite ? 'Eliminar de Favoritos' : 'Añadir a Favoritos'}
+                  {}
                 </Button>
               </View>
             </Card.Content>

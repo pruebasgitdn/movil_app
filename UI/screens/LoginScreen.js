@@ -64,17 +64,14 @@ const LoginScreen = ({navigation}) => {
           formData.contraseña,
         );
 
-        //UID del autenticado
         const userId = userCredential.user.uid;
 
-        //Buscar por el id en la coleccion usuarios
         const userDoc = await firestore()
           .collection('usuarios')
           .doc(userId)
           .get();
 
-        if (userDoc) {
-          //Extraer la info
+        if (userDoc.exists) {
           const userData = userDoc.data();
 
           dispatch({
@@ -85,7 +82,7 @@ const LoginScreen = ({navigation}) => {
             },
           });
 
-          Alert.alert('Inicio de sesion exitoso');
+          Alert.alert('Inicio de sesión exitoso');
           navigation.navigate('ProfileScreen');
         }
       } catch (error) {
@@ -99,6 +96,7 @@ const LoginScreen = ({navigation}) => {
       }
     }
   };
+
   return (
     <ImageBackground
       source={require('../../styles/assets/flogin.jpg')}

@@ -75,7 +75,10 @@ const ProfileScreen = ({navigation, route}) => {
           <Button buttonColor="red" textColor="white" onPress={handleLogout}>
             Cerrar Sesion.
           </Button>
-          <Button buttonColor="green" textColor="white">
+          <Button
+            buttonColor="green"
+            textColor="white"
+            onPress={() => navigation.navigate('EditProfile')}>
             Editar Perfil.
           </Button>
         </View>
