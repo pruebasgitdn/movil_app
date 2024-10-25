@@ -23,8 +23,8 @@ import RopaProducts from './UI/components/RopaProducts';
 import AseoProducts from './UI/components/AseoProducts';
 import AutoProducts from './UI/components/AutoProducts';
 import HogarProducts from './UI/components/HogarProducts';
-import {importDataToFirestore} from './android/app/src/services/fireStoreImport';
 import EditProfile from './UI/components/EditProfile';
+// import {importDataToFirestore} from './android/app/src/services/fireStoreImport';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
