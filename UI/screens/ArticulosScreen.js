@@ -37,7 +37,11 @@ const ArticulosScreen = ({navigation}) => {
         let productosCollection;
 
         if (selectedCategory) {
+<<<<<<< HEAD
           // obtener los productos de la tan seleccionada
+=======
+          // Obtener todos los productos de la categoría seleccionada
+>>>>>>> 46c4ddea063e594d4825920d4811a32b0f728384
           productosCollection = await firestore()
             .collection('products')
             .where('category', '==', selectedCategory)
