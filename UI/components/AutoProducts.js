@@ -7,6 +7,7 @@ import {CartContext} from '../../context/CartContext';
 
 const AutoProducts = ({navigation}) => {
   const [productos, setProductos] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const {dispatch, state} = useContext(CartContext);
 
@@ -19,7 +20,14 @@ const AutoProducts = ({navigation}) => {
       try {
         let productosCollection;
 
-        if (selectedCategory) {
+        if (searchQuery) {
+          // Si hay texto en el campo de búsqueda, filtra por título
+          productosCollection = await firestore()
+            .collection('products')
+            .where('title', '>=', searchQuery)
+            .where('title', '<=', searchQuery + '\uf8ff')
+            .get();
+        } else if (selectedCategory) {
           productosCollection = await firestore()
             .collection('products')
             .where('brand', '==', selectedCategory)
@@ -40,7 +48,7 @@ const AutoProducts = ({navigation}) => {
     };
 
     fetchProducts();
-  }, [selectedCategory]);
+  }, [selectedCategory, searchQuery]);
 
   const renderItem = ({item}) => {
     const isInCart = state.user?.carrito?.some(
@@ -118,6 +126,7 @@ const AutoProducts = ({navigation}) => {
         <View style={styles.searchbarcontainer}>
           <Searchbar
             placeholder="Buscar"
+            onChangeText={setSearchQuery}
             icon=""
             mode="view"
             style={styles.search_bar}

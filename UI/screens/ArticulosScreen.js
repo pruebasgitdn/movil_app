@@ -15,7 +15,7 @@ import {CartContext} from '../../context/CartContext';
 import firestore from '@react-native-firebase/firestore';
 
 const ArticulosScreen = ({navigation}) => {
-  const [searchQuery, setSearchQuery] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [productos, setProductos] = useState([]);
 
@@ -30,24 +30,26 @@ const ArticulosScreen = ({navigation}) => {
     console.log('User actualizado:', state.user);
   }, [state.user]);
 
-  // obtener productos 10
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         let productosCollection;
 
-        if (selectedCategory) {
-<<<<<<< HEAD
-          // obtener los productos de la tan seleccionada
-=======
-          // Obtener todos los productos de la categoría seleccionada
->>>>>>> 46c4ddea063e594d4825920d4811a32b0f728384
+        if (searchQuery) {
+          // Si hay texto en el campo de búsqueda, filtra por título
+          productosCollection = await firestore()
+            .collection('products')
+            .where('title', '>=', searchQuery)
+            .where('title', '<=', searchQuery + '\uf8ff')
+            .get();
+        } else if (selectedCategory) {
+          // Si hay una categoría seleccionada, filtra por categoría
           productosCollection = await firestore()
             .collection('products')
             .where('category', '==', selectedCategory)
             .get();
         } else {
-          // obtener los primeros 10 productos si no hay tan seleccionada
+          // Si no hay filtro, obtén los primeros 10 productos
           productosCollection = await firestore()
             .collection('products')
             .limit(10)
@@ -66,11 +68,7 @@ const ArticulosScreen = ({navigation}) => {
     };
 
     fetchProducts();
-  }, [selectedCategory]);
-
-  const filtredData = selectedCategory
-    ? productos.filter(item => item.category === selectedCategory)
-    : productos; // Filtrar productos x categoria
+  }, [selectedCategory, searchQuery]); // Escucha también cambios en searchQuery
 
   const handlePress = item => {
     navigation.navigate('DetalleScreen', {item});

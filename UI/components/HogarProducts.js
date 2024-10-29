@@ -7,6 +7,7 @@ import firestore from '@react-native-firebase/firestore';
 
 const HogarProducts = ({navigation}) => {
   const [productos, setProductos] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const {dispatch, state} = useContext(CartContext);
 
@@ -18,7 +19,14 @@ const HogarProducts = ({navigation}) => {
     const fetchProducts = async () => {
       try {
         let productosCollection;
-        if (selectedCategory) {
+
+        if (searchQuery) {
+          productosCollection = await firestore()
+            .collection('products')
+            .where('title', '>=', searchQuery)
+            .where('title', '<=', searchQuery + '\uf8ff')
+            .get();
+        } else if (selectedCategory) {
           productosCollection = await firestore()
             .collection('products')
             .where('brand', '==', selectedCategory)
@@ -38,7 +46,7 @@ const HogarProducts = ({navigation}) => {
     };
 
     fetchProducts();
-  }, [selectedCategory]);
+  }, [selectedCategory, searchQuery]);
 
   const renderItem = ({item}) => {
     const isInCart = state.user?.carrito?.some(
@@ -120,6 +128,7 @@ const HogarProducts = ({navigation}) => {
             icon=""
             mode="view"
             style={styles.search_bar}
+            onChangeText={setSearchQuery}
           />
 
           <View style={styles.subsearchbarcontainer}>

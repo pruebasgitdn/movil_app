@@ -6,6 +6,7 @@ import firestore from '@react-native-firebase/firestore';
 import {CartContext} from '../../context/CartContext';
 
 const TecnoProducts = ({navigation}) => {
+  const [searchQuery, setSearchQuery] = useState('');
   const [productos, setProductos] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const {dispatch, state} = useContext(CartContext);
@@ -19,7 +20,13 @@ const TecnoProducts = ({navigation}) => {
       try {
         let productosCollection;
 
-        if (selectedCategory) {
+        if (searchQuery) {
+          productosCollection = await firestore()
+            .collection('products')
+            .where('title', '>=', searchQuery)
+            .where('title', '<=', searchQuery + '\uf8ff')
+            .get();
+        } else if (selectedCategory) {
           productosCollection = await firestore()
             .collection('products')
             .where('brand', '==', selectedCategory)
@@ -40,7 +47,7 @@ const TecnoProducts = ({navigation}) => {
     };
 
     fetchProducts();
-  }, [selectedCategory]);
+  }, [selectedCategory, searchQuery]);
 
   const renderItem = ({item}) => {
     const isInCart = state.user?.carrito?.some(
@@ -120,6 +127,7 @@ const TecnoProducts = ({navigation}) => {
           <Searchbar
             placeholder="Buscar"
             icon=""
+            onChangeText={setSearchQuery}
             mode="view"
             style={styles.search_bar}
           />
