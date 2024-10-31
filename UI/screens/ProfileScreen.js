@@ -26,7 +26,7 @@ const ProfileScreen = ({navigation, route}) => {
         <Card.Content style={styles.profile_card}>
           <Avatar.Image
             size={100}
-            source={require('../../styles/assets/avatar.png')}
+            source={require('../../styles/assets/nashe.png')}
           />
           <Text style={styles.profile_letra}>{state.user?.usuario}</Text>
           <Text style={styles.profile_subletra}>{state.user?.correo}</Text>

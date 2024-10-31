@@ -32,7 +32,7 @@ const MisFavoScreen = ({navigation}) => {
           </View>
 
           <View style={styles.detalle_card_favo}>
-            <Text style={styles.textodetalle}>{item.description}</Text>
+            <Text style={styles.ofl}>{item.description}</Text>
 
             <View style={styles.second_row_favo_card}>
               <View

@@ -51,7 +51,7 @@ const SucursalScreen = ({route}) => {
 
           <View style={styles.info_product_sucursal}>
             <Text style={styles.negrita}>{item.brand}</Text>
-            <Text style={styles.textodetalle}>{item.description}</Text>
+            <Text style={styles.ofl}>{item.description}</Text>
             <Text style={styles.negrita}>
               Precio: {item.offer ? item.offerprice : item.price}
             </Text>

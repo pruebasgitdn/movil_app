@@ -357,6 +357,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  ofl: {
+    flexWrap: 'wrap',
+    width: '50%',
+  },
   payButton: {
     paddingHorizontal: 20,
     width: '100%',
